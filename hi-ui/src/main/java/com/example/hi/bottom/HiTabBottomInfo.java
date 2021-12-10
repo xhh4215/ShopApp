@@ -4,7 +4,13 @@ import android.graphics.Bitmap;
 
 import androidx.fragment.app.Fragment;
 
+/****
+ * @author 栾桂明
+ * @desc 地步导航组件对应的数据实体
+ * @param <Color>
+ */
 public class HiTabBottomInfo<Color> {
+    //图片的美枚举类型
     public enum TabType {
         BITMAP, ICON
     }

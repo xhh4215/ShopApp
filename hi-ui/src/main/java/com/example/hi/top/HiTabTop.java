@@ -1,4 +1,4 @@
-package com.example.hi.bottom;
+package com.example.hi.top;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -16,47 +16,38 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
 import com.example.hi.R;
+import com.example.hi.bottom.HiTabBottomInfo;
 import com.example.hi.common.IHiTab;
 
-import org.w3c.dom.Text;
-
-/****
- * @author 栾桂明
- * @desc 底部导航组件的一个小item
- */
-public class HiTabBottom extends RelativeLayout implements IHiTab<HiTabBottomInfo<?>> {
+public class HiTabTop extends RelativeLayout implements IHiTab<HiTabTopInfo<?>> {
     //当前tab的使用的数据
-    private HiTabBottomInfo<?> tabInfo;
+    private HiTabTopInfo<?> tabInfo;
     //tab的bitmap图标
     private ImageView tabImageView;
-    //tab的IconFont图标
-    private TextView tabIconView;
     //当前tab的name
     private TextView tabNameView;
 
-    public HiTabBottom(Context context) {
+    private View indicator;
+
+    public HiTabTop(Context context) {
         this(context, null);
     }
 
-    public HiTabBottom(Context context, AttributeSet attrs) {
+    public HiTabTop(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public HiTabBottom(Context context, AttributeSet attrs, int defStyleAttr) {
+    public HiTabTop(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
-    public HiTabBottomInfo<?> getTabInfo() {
+    public HiTabTopInfo<?> getTabInfo() {
         return tabInfo;
     }
 
     public ImageView getTabImageView() {
         return tabImageView;
-    }
-
-    public TextView getTabIconView() {
-        return tabIconView;
     }
 
     public TextView getTabNameView() {
@@ -65,18 +56,15 @@ public class HiTabBottom extends RelativeLayout implements IHiTab<HiTabBottomInf
 
     private void init() {
         //加载当前的View使用的布局，和初始化内部的view
-        LayoutInflater.from(getContext()).inflate(R.layout.hi_tab_bottom, this);
-        tabIconView = findViewById(R.id.tv_icon);
+        LayoutInflater.from(getContext()).inflate(R.layout.hi_tab_top, this);
         tabNameView = findViewById(R.id.tv_name);
         tabImageView = findViewById(R.id.iv_image);
+        indicator = findViewById(R.id.tab_top_indicator);
     }
 
-    /***
-     * 设置item的数据
-     * @param data
-     */
+
     @Override
-    public void setHiTabInfo(@NonNull HiTabBottomInfo<?> data) {
+    public void setHiTabInfo(@NonNull HiTabTopInfo<?> data) {
         this.tabInfo = data;
         inflateInfo(false, true);
     }
@@ -87,32 +75,25 @@ public class HiTabBottom extends RelativeLayout implements IHiTab<HiTabBottomInf
      * @param isInit
      */
     private void inflateInfo(boolean isSelected, boolean isInit) {
-        if (tabInfo.tabType == HiTabBottomInfo.TabType.ICON) {
+        if (tabInfo.tabType == HiTabTopInfo.TabType.TEXT) {
             if (isInit) {
                 tabImageView.setVisibility(GONE);
-                tabIconView.setVisibility(VISIBLE);
-                Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), tabInfo.iconFont);
-                tabIconView.setTypeface(typeface);
+                tabNameView.setVisibility(VISIBLE);
                 if (!TextUtils.isEmpty(tabInfo.name)) {
                     tabNameView.setText(tabInfo.name);
                 }
             }
             if (isSelected) {
-                tabIconView.setText(TextUtils.isEmpty(tabInfo.selectIconName) ? tabInfo.defaultIconName : tabInfo.selectIconName);
-                tabIconView.setTextColor(getTextColor(tabInfo.tintColor));
+                indicator.setVisibility(VISIBLE);
                 tabNameView.setTextColor(getTextColor(tabInfo.tintColor));
             } else {
-                tabIconView.setText(tabInfo.defaultIconName);
-                tabIconView.setTextColor(getTextColor(tabInfo.defaultColor));
+                indicator.setVisibility(GONE);
                 tabNameView.setTextColor(getTextColor(tabInfo.defaultColor));
             }
-        } else if (tabInfo.tabType == HiTabBottomInfo.TabType.BITMAP) {
+        } else if (tabInfo.tabType == HiTabTopInfo.TabType.BITMAP) {
             if (isInit) {
                 tabImageView.setVisibility(VISIBLE);
-                tabIconView.setVisibility(GONE);
-                if (!TextUtils.isEmpty(tabInfo.name)) {
-                    tabNameView.setText(tabInfo.name);
-                }
+                tabNameView.setVisibility(GONE);
             }
             if (isSelected) {
                 tabImageView.setImageBitmap(tabInfo.selectBitmap);
@@ -149,7 +130,7 @@ public class HiTabBottom extends RelativeLayout implements IHiTab<HiTabBottomInf
     }
 
     @Override
-    public void onTabSelectedChange(int index, @NonNull HiTabBottomInfo<?> proInfo, @NonNull HiTabBottomInfo<?> nextInfo) {
+    public void onTabSelectedChange(int index, @NonNull HiTabTopInfo<?> proInfo, @NonNull HiTabTopInfo<?> nextInfo) {
         if (tabInfo != proInfo && tabInfo != nextInfo || nextInfo == proInfo) {
             return;
         }

@@ -33,7 +33,7 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
     private float alpha = 1f;
     private float tabBottomHeight = 50;
     private float bottomLineHeight = 0.5f;
-    private String bottomLineColor = "#dfe0e1";
+    private String bottomLineColor = "#FF000000";
     private List<HiTabBottomInfo<?>> infoList;
 
     public HiTabBottomLayout(@NonNull Context context) {

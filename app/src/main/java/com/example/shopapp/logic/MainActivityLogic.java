@@ -1,6 +1,8 @@
 package com.example.shopapp.logic;
 
 import android.content.res.Resources;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 
 import androidx.annotation.IdRes;
@@ -30,6 +32,10 @@ public class MainActivityLogic {
     private List<HiTabBottomInfo<?>> infoList;
     private ActivityProvider activityProvider;
 
+    private final static String SAVE_CURRENT_ID = "SAVE_CURRENT_ID";
+    private int currentItemPosition;
+
+
     public HiFragmentTabView getFragmentTabView() {
         return fragmentTabView;
     }
@@ -42,13 +48,17 @@ public class MainActivityLogic {
         return infoList;
     }
 
-    public MainActivityLogic(ActivityProvider activityProvider) {
+    public MainActivityLogic(ActivityProvider activityProvider, Bundle savedInstanceState) {
         this.activityProvider = activityProvider;
+        if (savedInstanceState != null) {
+            currentItemPosition = savedInstanceState.getInt(SAVE_CURRENT_ID);
+        }
         initTabBottom();
     }
 
-    private final static String SAVE_CURRENT_ID = "SAVE_CURRENT_ID";
-    private int currentItemPosition;
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt(SAVE_CURRENT_ID, currentItemPosition);
+    }
 
     private void initTabBottom() {
         fragmentTabView = activityProvider.findViewById(R.id.fragment_tab_view);
@@ -102,8 +112,9 @@ public class MainActivityLogic {
         initFragmentTabView();
         tabBottomLayout.addTabSelectedChangeListener((index, proInfo, nextInfo) -> {
             fragmentTabView.setCurrentItem(index);
+            MainActivityLogic.this.currentItemPosition = index;
         });
-        tabBottomLayout.defaultSelected(homeInfo);
+        tabBottomLayout.defaultSelected(infoList.get(currentItemPosition));
 
     }
 
@@ -122,5 +133,6 @@ public class MainActivityLogic {
         FragmentManager getSupportFragmentManager();
 
         String getString(@StringRes int resId);
+
     }
 }
