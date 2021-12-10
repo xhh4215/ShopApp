@@ -3,6 +3,10 @@ package com.example.hi.refresh;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
+/****
+ * @author 栾桂明
+ * @desc 手势监听处理器
+ */
 public class HiGestureListener implements GestureDetector.OnGestureListener {
     @Override
     public boolean onDown(MotionEvent e) {

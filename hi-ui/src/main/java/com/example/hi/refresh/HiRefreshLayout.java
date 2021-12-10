@@ -11,12 +11,14 @@ import android.widget.Scroller;
 
 import com.example.hi.refresh.HiOverView.HiRefreshState;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+/***
+ * @author 栾桂明
+ * @desc 下拉刷新组件
+ */
 public class HiRefreshLayout extends FrameLayout implements IHiRefresh {
-    private static final String TAG = HiRefreshLayout.class.getSimpleName();
 
     private HiRefreshState mState;
     /***
@@ -127,12 +129,14 @@ public class HiRefreshLayout extends FrameLayout implements IHiRefresh {
         addView(mHiOverView, 0, layoutParams);
     }
 
-
+    /***
+     * 通过手势处理对象对Touch事件进行处理
+     */
     HiGestureListener gestureListener = new HiGestureListener() {
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            //横向滑动 或者滑动被禁止 不做处理
             if (Math.abs(distanceX) > Math.abs(distanceY) || mRefreshListener != null && !mRefreshListener.enableRefresh()) {
-                //横向滑动 或者滑动被禁止
                 return false;
             }
             //刷新的时候是否禁止滚动
@@ -140,6 +144,7 @@ public class HiRefreshLayout extends FrameLayout implements IHiRefresh {
                 return true;
             }
             View head = getChildAt(0);
+            //查找可以滚动的子控件
             View child = HiScrollerUtil.findScrollableChild(HiRefreshLayout.this);
             //如果列表发生滚动就不做处理
             if (HiScrollerUtil.childScrolled(child)) {
@@ -180,25 +185,33 @@ public class HiRefreshLayout extends FrameLayout implements IHiRefresh {
         if (!mAutoScroller.isFinished()) {
             return false;
         }
+        //获取下拉刷新组件的headView
         View head = getChildAt(0);
+        //检测滑动是不是已经松开手
         if (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_POINTER_INDEX_MASK || ev.getAction() == MotionEvent.ACTION_CANCEL) {
-            //松开手
+            //headView被下拉出来  分为 1 还没滑到刷新的位置  2  滑过了刷新位置
             if (head.getBottom() > 0) {
+                //如果没有正在刷新 则需要针对1 ，2 两种情况 让headView回弹
                 if (mState != HiRefreshState.STATE_REFRESH) {//非正在刷新
                     recover(head.getBottom());
                     return false;
                 }
             }
+            //下拉最后的y轴的坐标
             mLastY = 0;
         }
+        //获取手势检测对事件的处理情况  是否消费
         boolean consumed = mGestureDetector.onTouchEvent(ev);
+        //此处可以理解为是下拉的过程中 没有触发刷新的阶段
         if ((consumed || (mState != HiRefreshState.STATE_INIT && mState != HiRefreshState.STATE_REFRESH)) && head.getBottom() != 0) {
             ev.setAction(MotionEvent.ACTION_CANCEL);//让父类接收不到这个事件
             return super.dispatchTouchEvent(ev);
         }
+        //消费了事件则不在进行事件的分发 在当前的View消费了事件
         if (consumed) {
             return true;
         } else {
+            //否则继续进行事件的分发
             return super.dispatchTouchEvent(ev);
         }
 

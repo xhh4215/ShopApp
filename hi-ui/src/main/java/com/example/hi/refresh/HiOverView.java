@@ -14,7 +14,9 @@ import com.example.library.utils.HiDisplayUtil;
  * @desc 扩展下拉刷新的头部的抽象类
  */
 public abstract class HiOverView extends FrameLayout {
-
+    /***
+     * 代表下拉刷新控件的状态的枚举类
+     */
     public enum HiRefreshState {
         /***
          * 初始状态
@@ -40,7 +42,8 @@ public abstract class HiOverView extends FrameLayout {
 
     /**
      * 触发下拉刷新 需要的最小高度
-     */    public int mPullRefreshHeight;
+     */
+    public int mPullRefreshHeight;
     /***
      * 最小阻尼
      */
@@ -68,6 +71,9 @@ public abstract class HiOverView extends FrameLayout {
         preInit();
     }
 
+    /***
+     * 预加载的操作  初始化触发下拉刷新的高度
+     */
     protected void preInit() {
         mPullRefreshHeight = HiDisplayUtil.dp2px(88f, getResources());
         init();

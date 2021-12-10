@@ -1,5 +1,10 @@
 package com.example.hi.refresh;
 
+/***
+ * @author 栾桂明
+ * @desc 下拉刷新组件的通用接口
+ *
+ */
 public interface IHiRefresh {
     /***
      * 刷新的时候是否禁止滚动
