@@ -1,5 +1,4 @@
 package com.example.hi.refresh;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
@@ -8,12 +7,9 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.Scroller;
-
 import com.example.hi.refresh.HiOverView.HiRefreshState;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 /***
  * @author 栾桂明
  * @desc 下拉刷新组件

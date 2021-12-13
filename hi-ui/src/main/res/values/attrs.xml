@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HIBanner">
+        <attr name="autoPlay" format="boolean"></attr>
+        <attr name="loop" format="boolean"></attr>
+        <attr name="intervalTime" format="integer|reference"></attr>
+    </declare-styleable>
+</resources>
