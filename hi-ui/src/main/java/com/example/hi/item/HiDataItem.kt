@@ -1,9 +1,7 @@
 package com.example.hi.item
-
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-
 /***
  * 通用的adapter加载使用的数据item
  * @param <DATA>  当前item对应的数据bean
@@ -12,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 abstract class HiDataItem<DATA, VH : RecyclerView.ViewHolder>(data: DATA) {
 
     private lateinit var adapter: HiAdapter
+
     var mData: DATA? = null
 
     init {
