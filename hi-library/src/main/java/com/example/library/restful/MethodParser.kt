@@ -13,7 +13,7 @@ import java.lang.reflect.Type
  */
 class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
     //请求的域名
-    private lateinit var domainUrl: String
+    private var domainUrl: String? = null
 
     //是否是表单提交
     private var formPost: Boolean = true
@@ -31,7 +31,7 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
     private var headers: MutableMap<String, String> = mutableMapOf()
 
     //参数的集合
-    private var parameters: MutableMap<String, Any> = mutableMapOf()
+    private var parameters: MutableMap<String, String> = mutableMapOf()
 
     init {
         /****
@@ -53,7 +53,7 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
      * 解析方法的返回值
      */
     private fun parseMethodReturnType(method: Method) {
-        if (method.returnType == HiCall::class) {
+        if (method.returnType != HiCall::class.java) {
             throw IllegalStateException(
                 String.format(
                     "method %s must be type of  HiCall.class",
@@ -117,9 +117,10 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
                     throw  IllegalStateException("can not handle method annotation" + annotation.javaClass.toString())
                 }
             }
-            require(!(httpMethod != HiRequest.METHOD.GET) && !(httpMethod != HiRequest.METHOD.POST)) {
-                String.format("method %s must has one of GET POST", method.name)
-            }
+
+        }
+        require((httpMethod == HiRequest.METHOD.GET) || (httpMethod == HiRequest.METHOD.POST)) {
+            String.format("method %s must has one of GET POST", method.name)
         }
 
         if (domainUrl == null) {
@@ -159,7 +160,7 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
             if (annotation is Field) {
                 val key = annotation.value
                 val value = args[index]
-                parameters[key] = value
+                parameters[key] = value.toString()
             } else if (annotation is Path) {
                 val replaceName = annotation.name
                 val replacement = value.toString()
@@ -206,6 +207,7 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
         request.httpMethod = httpMethod
         request.returnType = returnType
         request.relativeUrl = relativeUrl
+        request.formPost = formPost
         return request
     }
 
