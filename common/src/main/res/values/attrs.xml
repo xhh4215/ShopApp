@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    输入框的样式-->
+    <declare-styleable name="InputItemLayout">
+        <attr name="hint" format="string" />
+        <attr name="title" format="string" />
+        <attr name="inputType" format="enum">
+            <enum name="text" value="0" />
+            <enum name="password" value="1" />
+            <enum name="number" value="2" />
+        </attr>
+        <attr name="inputTextAppearance" format="reference" />
+        <attr name="titleTextAppearance" format="reference" />
+        <attr name="topLineTextAppearance" format="reference" />
+        <attr name="bottomLineTextAppearance" format="reference" />
+    </declare-styleable>
+    <!--    输入框文本的样式-->
+    <declare-styleable name="inputTextAppearance">
+        <attr name="hintColor" format="color" />
+        <attr name="inputColor" format="color" />
+        <attr name="textSize" format="dimension" />
+
+    </declare-styleable>
+    <!--    输入框标题的样式-->
+    <declare-styleable name="titleTextAppearance">
+        <attr name="titleColor" format="color" />
+        <attr name="titleSize" format="dimension" />
+        <attr name="minWidth" format="dimension" />
+        <attr name="leftPadding" format="dimension" />
+    </declare-styleable>
+    <!--    分割线的样式-->
+    <declare-styleable name="lineAppearance">
+        <attr name="color" format="color" />
+        <attr name="height" format="dimension" />
+        <attr name="leftMargin" format="dimension" />
+        <attr name="rightMargin" format="dimension" />
+        <attr name="enable" format="boolean" />
+    </declare-styleable>
+</resources>

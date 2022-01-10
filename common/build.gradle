@@ -45,9 +45,11 @@ dependencies {
     implementation 'com.alibaba:arouter-api:1.5.2'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.google.code.gson:gson:2.8.9'
+    implementation project(path: ':hi-library')
+    implementation project(path: ':hi-ui')
     kapt 'com.alibaba:arouter-compiler:1.5.2'
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
-    implementation project(path: ':hi-ui')
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

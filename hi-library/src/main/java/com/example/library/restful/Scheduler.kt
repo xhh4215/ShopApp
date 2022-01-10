@@ -41,8 +41,8 @@ class Scheduler(
                     }
                 }
 
-                override fun onFiled(throwable: Throwable) {
-                    if (callBack != null) callBack.onFiled(throwable)
+                override fun onFailed(throwable: Throwable) {
+                    if (callBack != null) callBack.onFailed(throwable)
                 }
 
             })
@@ -86,5 +86,6 @@ class Scheduler(
             }
 
         }
+
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    登录页面的数据框的样式-->
+    <style name="inputTextAppearance">
+        <item name="hintColor">@color/color_C1B</item>
+        <item name="inputColor">@color/color_565</item>
+        <item name="textSize">15sp</item>
+    </style>
+    <!--    登录页面的每个item的标题样式-->
+    <style name="titleTextAppearance">
+        <item name="minWidth">100dp</item>
+        <item name="titleColor">@color/color_565</item>
+        <item name="titleSize">15sp</item>
+    </style>
+    <!--    登录页面的分割线的样式-->
+    <style name="lineAppearance">
+        <item name="color">@color/color_C1B</item>
+        <item name="height">0.5dp</item>
+        <item name="leftMargin">0dp</item>
+        <item name="rightMargin">0dp</item>
+        <item name="enable">true</item>
+
+    </style>
+    <!--    有左边距的登录页面分割线-->
+    <style name="leftMarginLineAppearance" parent="lineAppearance">
+        <item name="leftMargin">10dp</item>
+    </style>
+</resources>

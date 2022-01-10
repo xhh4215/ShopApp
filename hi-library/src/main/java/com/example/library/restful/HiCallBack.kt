@@ -13,5 +13,5 @@ interface HiCallBack<T> {
     /***
      * 请求失败的回调
      */
-    fun onFiled(throwable: Throwable)
+    fun onFailed(throwable: Throwable)
 }
