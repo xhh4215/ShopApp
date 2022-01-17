@@ -5,21 +5,24 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".HiApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".HiApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopApp">
+        <activity
+            android:name=".route.DegradeGlobalActivity"
+            android:exported="false" />
         <activity
             android:name=".biz.RegistrationActivity"
             android:exported="false" />
         <activity
             android:name=".biz.LoginActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".biz.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -22,4 +22,5 @@
     <string name="input_item_hint_pwd">请输入密码</string>
     <string name="input_item_hint_pwd2">请再次输入密码</string>
     <string name="input_item_title_pwd2">确认密码</string>
+    <string name="degrade_title">错误提示</string>
 </resources>

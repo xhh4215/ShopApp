@@ -1,4 +1,4 @@
-package com.example.shopapp;
+package com.example.shopapp.biz;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,14 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.common.ui.component.HiBaseActivity;
-import com.example.library.restful.HiCallBack;
-import com.example.library.restful.HiResponse;
+import com.example.shopapp.R;
 import com.example.shopapp.biz.LoginActivity;
-import com.example.shopapp.http.ApiFactory;
-import com.example.shopapp.http.AccountApi;
 import com.example.shopapp.logic.MainActivityLogic;
-
-import org.json.JSONObject;
 
 public class MainActivity extends HiBaseActivity implements MainActivityLogic.ActivityProvider {
     private MainActivityLogic logic;

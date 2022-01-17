@@ -33,7 +33,7 @@ object HiRoute {
         context: Context?,
         bundle: Bundle? = null,
         destination: Destination,
-        requestCode: Int = -1
+        requestCode: Int = -1,
     ) {
         val postcard = ARouter.getInstance().build(destination.path).with(bundle)
         if (requestCode == -1 || context !is Activity) {

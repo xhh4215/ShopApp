@@ -13,7 +13,7 @@ import com.example.library.restful.HiResponse
 import com.example.library.utils.HiStatusBar
 import com.example.shopapp.R
 import com.example.shopapp.databinding.ActivityRegistBinding
-import com.example.shopapp.http.AccountApi
+import com.example.shopapp.http.api.AccountApi
 import com.example.shopapp.http.ApiFactory
 @Route(path = "/account/registration")
 class RegistrationActivity : HiBaseActivity() {

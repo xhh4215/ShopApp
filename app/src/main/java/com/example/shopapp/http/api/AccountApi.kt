@@ -1,4 +1,4 @@
-package com.example.shopapp.http
+package com.example.shopapp.http.api
 
 import com.example.library.restful.HiCall
 import com.example.library.restful.annotation.Field

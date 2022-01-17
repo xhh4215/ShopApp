@@ -2,7 +2,6 @@ package com.example.shopapp.biz
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
@@ -15,7 +14,7 @@ import com.example.library.restful.HiResponse
 import com.example.library.utils.HiStatusBar
 import com.example.shopapp.R
 import com.example.shopapp.databinding.ActivityLoginBinding
-import com.example.shopapp.http.AccountApi
+import com.example.shopapp.http.api.AccountApi
 import com.example.shopapp.http.ApiFactory
 import com.example.shopapp.route.HiRoute
 
@@ -75,7 +74,6 @@ class LoginActivity : HiBaseActivity() {
                     }
 
                 })
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
