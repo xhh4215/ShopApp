@@ -10,6 +10,5 @@ class DegradeServiceImp : DegradeService {
         HiRoute.startActivity(context, destination = HiRoute.Destination.DEGRADE_GLOBAL)
     }
     override fun onLost(context: Context?, postcard: Postcard?) {
-        TODO("Not yet implemented")
-    }
+     }
 }

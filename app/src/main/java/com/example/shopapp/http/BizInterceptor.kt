@@ -15,7 +15,6 @@ class BizInterceptor : HiInterceptor {
             val request = chain.request()
             val boarding = SPUtil.getString("boarding-pass") ?: ""
             request.addHeader("boarding-pass", boarding)
-
             request.addHeader("auth-token", "MTU5Mjg1MDg3NDcwNw11.26==")
         } else if (chain.response() != null) {
             Log.e("BizInterceptor", chain.request()!!.endPointUrl())

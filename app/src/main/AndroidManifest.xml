@@ -29,7 +29,6 @@
                 <!-- 设置当前的activity为launcher应用 -->
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.HOME" />
-                <!--  -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -66,10 +67,12 @@ class LoginActivity : HiBaseActivity() {
                             finish()
                         } else {
                             showToast("登录失败：${response.msg}")
+                            Log.e("error_code","${response.code}")
                         }
                     }
 
                     override fun onFailed(throwable: Throwable) {
+
                         showToast("登录失败：${throwable.message}")
                     }
 

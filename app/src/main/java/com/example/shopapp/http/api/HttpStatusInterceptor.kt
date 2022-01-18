@@ -8,7 +8,7 @@ import com.example.library.restful.HiResponse
 class HttpStatusInterceptor : HiInterceptor {
     override fun intercept(chain: HiInterceptor.Chain): Boolean {
         val response = chain.response()
-        if (chain.isRequestPeriod && response != null) {
+        if (!chain.isRequestPeriod && response != null) {
             when (response.code) {
                 HiResponse.RC_NEED_LOGIN -> {
                     HiRoute.startActivity(
@@ -22,7 +22,6 @@ class HttpStatusInterceptor : HiInterceptor {
                     if (response.errorData != null) {
                         helpUrl = response.errorData!!["helpUrl"]
                     }
-
                     val bundle = Bundle()
                     bundle.putString("degrade_title", "非法访问")
                     bundle.putString("degrade_desc", response.msg)

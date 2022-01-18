@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
+import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.Exception
 import java.lang.reflect.Type
@@ -25,7 +26,7 @@ class GsonConvert : HiConvert {
             response.code = jsonObject.optInt("code")
             response.msg = jsonObject.optString("msg")
             val data = jsonObject.opt("data")
-            if ((data is JsonObject) or (data is JsonArray)) {
+            if ((data is JSONObject) or (data is JSONArray)) {
                 if (response.code == HiResponse.SUCCESS) {
                     response.data = gson.fromJson(data.toString(), dataType)
                 } else {

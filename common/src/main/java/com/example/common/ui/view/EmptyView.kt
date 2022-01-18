@@ -51,11 +51,9 @@ class EmptyView : LinearLayout {
     }
 
     @JvmOverloads
-    fun setHelperAction(iconRes: Int = R.string.if_detail, listener: OnClickListener) {
+    fun setHelperAction(@StringRes iconRes: Int = R.string.if_detail, listener: OnClickListener) {
         findViewById<IconFontTextView>(R.id.empty_tips).setText(iconRes)
-        findViewById<IconFontTextView>(R.id.empty_tips).setOnClickListener {
-            listener
-        }
+        findViewById<IconFontTextView>(R.id.empty_tips).setOnClickListener(listener)
         findViewById<IconFontTextView>(R.id.empty_tips).visibility = View.VISIBLE
         if (iconRes == -1) {
             findViewById<IconFontTextView>(R.id.empty_tips).visibility = View.GONE

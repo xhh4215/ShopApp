@@ -105,9 +105,9 @@ public class MainActivityLogic {
         profileInfo.fragment = ProfileFragment.class;
         infoList.add(homeInfo);
         infoList.add(categoryInfo);
+        infoList.add(favoriteInfo);
         infoList.add(recommendInfo);
         infoList.add(profileInfo);
-        infoList.add(favoriteInfo);
         tabBottomLayout.inflatedInfo(infoList);
         initFragmentTabView();
         tabBottomLayout.addTabSelectedChangeListener((index, proInfo, nextInfo) -> {

@@ -39,12 +39,12 @@ class DegradeGlobalActivity : HiBaseActivity() {
         }
         if (degrade_action != null) {
             deGardeDataBinding.emptyView.setHelperAction(listener = {
+                Toast.makeText(this, "错误解决方法", Toast.LENGTH_SHORT).show()
                 HiRoute.startActivity4Browser(url = degrade_action!!)
             })
         }
         deGardeDataBinding.actionBack.setOnClickListener {
             onBackPressed()
         }
-
     }
 }
