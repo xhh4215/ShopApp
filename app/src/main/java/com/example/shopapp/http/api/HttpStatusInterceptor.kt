@@ -1,6 +1,7 @@
 package com.example.shopapp.http.api
 
 import android.os.Bundle
+import android.util.Log
 import com.example.library.restful.HiInterceptor
 import com.example.library.restful.HiResponse
  import com.example.shopapp.route.HiRoute
@@ -9,12 +10,13 @@ class HttpStatusInterceptor : HiInterceptor {
     override fun intercept(chain: HiInterceptor.Chain): Boolean {
         val response = chain.response()
         if (!chain.isRequestPeriod && response != null) {
+            Log.e("code","${response.code}")
             when (response.code) {
                 HiResponse.RC_NEED_LOGIN -> {
-                    HiRoute.startActivity(
-                        null,
-                        destination = HiRoute.Destination.ACCOUNT_LOGIN
-                    )
+//                    HiRoute.startActivity(
+//                        null,
+//                        destination = HiRoute.Destination.ACCOUNT_LOGIN
+//                    )
                 }
                 HiResponse.RC_AUTH_TOKEN_EXPIRED , (HiResponse.RC_AUTH_TOKEN_INVALID) , (
                         HiResponse.RC_USER_FORBID) -> {

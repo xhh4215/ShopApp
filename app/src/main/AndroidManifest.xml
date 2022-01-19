@@ -11,7 +11,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ShopApp">
+        android:theme="@style/Theme.ShopApp"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".route.DegradeGlobalActivity"
             android:exported="false" />
@@ -28,7 +29,6 @@
                 <action android:name="android.intent.action.MAIN" />
                 <!-- 设置当前的activity为launcher应用 -->
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

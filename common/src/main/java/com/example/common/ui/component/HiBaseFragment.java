@@ -23,4 +23,6 @@ public abstract class HiBaseFragment extends Fragment {
         layoutView = inflater.inflate(getLayoutId(), container, false);
         return layoutView;
     }
+
+
 }

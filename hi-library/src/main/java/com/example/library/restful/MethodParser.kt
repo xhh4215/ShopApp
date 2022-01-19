@@ -11,7 +11,7 @@ import java.lang.reflect.Type
  * @author 栾桂明
  * @desc 对方法的注解信息进行解析
  */
-class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
+class MethodParser(val baseUrl: String, method: Method) {
     //请求的域名
     private var domainUrl: String? = null
 
@@ -41,7 +41,7 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
         /***
          * 解析方法的参数
          */
-        parseMethodParameters(method, args)
+//        parseMethodParameters(method, args)
 
         /***
          * 解析方法的返回值类型
@@ -199,7 +199,9 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
     /***
      * 通过解析到的数据创建request
      */
-    fun newRequest(): HiRequest {
+    fun newRequest(method: Method, args: Array<out Any>?): HiRequest {
+        val arguments: Array<Any> = args as Array<Any>? ?: arrayOf()
+        parseMethodParameters(method, arguments)
         var request = HiRequest()
         request.domainUrl = domainUrl
         request.headers = headers
@@ -213,8 +215,8 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
 
 
     companion object {
-        fun parse(baseUrl: String, method: Method, args: Array<Any>): MethodParser {
-            return MethodParser(baseUrl, method, args)
+        fun parse(baseUrl: String, method: Method): MethodParser {
+            return MethodParser(baseUrl, method)
         }
     }
 }

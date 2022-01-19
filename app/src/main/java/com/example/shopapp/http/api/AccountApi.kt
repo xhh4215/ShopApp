@@ -2,7 +2,11 @@ package com.example.shopapp.http.api
 
 import com.example.library.restful.HiCall
 import com.example.library.restful.annotation.Field
+import com.example.library.restful.annotation.GET
 import com.example.library.restful.annotation.POST
+import com.example.shopapp.model.CourseNotice
+import com.example.shopapp.model.Notice
+import com.example.shopapp.model.UserProfile
 
 interface AccountApi {
     @POST("user/login")
@@ -21,4 +25,9 @@ interface AccountApi {
     ): HiCall<String>
 
 
+    @GET("user/profile")
+    fun profile(): HiCall<UserProfile>
+
+    @GET("notice")
+    fun notice(): HiCall<CourseNotice>
 }

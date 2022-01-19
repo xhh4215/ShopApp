@@ -23,4 +23,16 @@
     <string name="input_item_hint_pwd2">请再次输入密码</string>
     <string name="input_item_title_pwd2">确认密码</string>
     <string name="degrade_title">错误提示</string>
+    <string name="profile_login_desc_welcome_back">Hi，欢迎回来</string>
+    <string name="item_collection">&#xe604;   我的收藏</string>
+    <string name="item_notify">&#xe654;  课程通知</string>
+    <string name="item_history">&#xe606;   浏览历史</string>
+    <string name="item_address">&#xe603;   收货地址</string>
+    <string name="profile_not_login">请先登录</string>
+    <string name="profile_welcome_back">Hi 欢迎回来</string>
+    <string name="profile_relock_all">解锁全部功能,畅想架构师福利</string>
+    <string name="profile_collection">\n收藏</string>
+    <string name="profile_brow_history">\n历史游览</string>
+    <string name="profile_study_time">\n学习时长</string>
+
 </resources>

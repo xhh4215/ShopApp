@@ -1,5 +1,6 @@
 package com.example.library.restful
 
+import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
 import java.util.concurrent.ConcurrentHashMap
@@ -30,18 +31,20 @@ open class HiRestful constructor(
     fun <T> create(service: Class<T>): T {
         return Proxy.newProxyInstance(
             service.classLoader,
-            arrayOf<Class<*>>(service)
-        ) { proyx, method, args ->
-            var methodParser = methodService[method]
-            if (methodParser == null) {
-                //方法的注解，参数 返回类型等的解析
-                methodParser = MethodParser.parse(baseUrl, method, args)
-                methodService[method] = methodParser
+            arrayOf<Class<*>>(service), object : InvocationHandler {
+                override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any {
+                    var methodParser = methodService[method]
+                    if (methodParser == null) {
+                        //方法的注解，参数 返回类型等的解析
+                        methodParser = MethodParser.parse(baseUrl, method)
+                        methodService[method] = methodParser
+                    }
+                    //通过解析到的数据创建request
+                    val request = methodParser.newRequest(method, args)
+                    //通过代理call进行对请求的拦截处理
+                    return scheduler.newCall(request)
+                }
             }
-            //通过解析到的数据创建request
-            val request = methodParser.newRequest()
-            //通过代理call进行对请求的拦截处理
-            scheduler.newCall(request)
-        } as T
+        ) as T
     }
 }

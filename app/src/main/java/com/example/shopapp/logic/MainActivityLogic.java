@@ -2,12 +2,10 @@ package com.example.shopapp.logic;
 
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.FragmentManager;
 
@@ -15,7 +13,6 @@ import com.example.common.tab.HiFragmentTabView;
 import com.example.common.tab.HiTabViewAdapter;
 import com.example.hi.bottom.HiTabBottomInfo;
 import com.example.hi.bottom.HiTabBottomLayout;
-import com.example.hi.common.IHiTabLayout;
 import com.example.shopapp.R;
 import com.example.shopapp.fragment.CategoryFragment;
 import com.example.shopapp.fragment.FavoriteFragment;
@@ -124,6 +121,8 @@ public class MainActivityLogic {
         fragmentTabView.setAdapter(adapter);
 
     }
+
+
 
     public interface ActivityProvider {
         <T extends View> T findViewById(@IdRes int id);

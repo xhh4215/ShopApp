@@ -5,11 +5,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.common.ui.component.HiBaseActivity;
 import com.example.shopapp.R;
-import com.example.shopapp.biz.LoginActivity;
 import com.example.shopapp.logic.MainActivityLogic;
+
+import java.util.List;
 
 public class MainActivity extends HiBaseActivity implements MainActivityLogic.ActivityProvider {
     private MainActivityLogic logic;
@@ -19,12 +21,20 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         logic = new MainActivityLogic(this, savedInstanceState);
-        startActivity(new Intent(this, LoginActivity.class));
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         logic.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for (Fragment fragment : fragments) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }
