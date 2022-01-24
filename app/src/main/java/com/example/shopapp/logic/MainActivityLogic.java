@@ -60,7 +60,7 @@ public class MainActivityLogic {
     private void initTabBottom() {
         fragmentTabView = activityProvider.findViewById(R.id.fragment_tab_view);
         tabBottomLayout = activityProvider.findViewById(R.id.tab_bottom_layout);
-        tabBottomLayout.setAlpha(0.85f);
+        tabBottomLayout.setAlpha(1f);
         infoList = new ArrayList<>();
         int defaultColor = activityProvider.getResources().getColor(R.color.tab_bottom_default_color);
         int tintColor = activityProvider.getResources().getColor(R.color.tab_bottom_tint_color);
@@ -121,7 +121,6 @@ public class MainActivityLogic {
         fragmentTabView.setAdapter(adapter);
 
     }
-
 
 
     public interface ActivityProvider {

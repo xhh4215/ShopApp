@@ -12,6 +12,8 @@ import java.lang.reflect.Type
  * @desc 对方法的注解信息进行解析
  */
 class MethodParser(val baseUrl: String, method: Method) {
+    private var replaceRelativeUrl: String? = null
+
     //请求的域名
     private var domainUrl: String? = null
 
@@ -165,8 +167,7 @@ class MethodParser(val baseUrl: String, method: Method) {
                 val replaceName = annotation.name
                 val replacement = value.toString()
                 if (replaceName != null && replacement != null) {
-                    val newRelativeUrl = relativeUrl.replace("{$replaceName}", replacement)
-                    relativeUrl = newRelativeUrl
+                    replaceRelativeUrl = relativeUrl.replace("{$replaceName}", replacement)
                 }
             } else {
                 throw IllegalStateException("can not handle param annotation" + annotation.javaClass.toString())
@@ -208,7 +209,7 @@ class MethodParser(val baseUrl: String, method: Method) {
         request.parameters = parameters
         request.httpMethod = httpMethod
         request.returnType = returnType
-        request.relativeUrl = relativeUrl
+        request.relativeUrl = replaceRelativeUrl?:relativeUrl
         request.formPost = formPost
         return request
     }

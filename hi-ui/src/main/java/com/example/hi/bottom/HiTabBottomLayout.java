@@ -31,7 +31,7 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
     private List<OnTabSelectedListener<HiTabBottomInfo<?>>> tabSelectedListenerList = new ArrayList<>();
     private HiTabBottomInfo<?> selectedInfo;
     private float alpha = 1f;
-    private float tabBottomHeight = 50;
+    private static float tabBottomHeight = 50;
     private float bottomLineHeight = 0.5f;
     private String bottomLineColor = "#FF000000";
     private List<HiTabBottomInfo<?>> infoList;
@@ -149,6 +149,13 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
             targetView.setClipToPadding(false);
         }
     }
+    public static void clipBottomPadding(ViewGroup targetView) {
+        if (targetView != null) {
+            targetView.setPadding(0, 0, 0, HiDisplayUtil.dp2px(tabBottomHeight));
+            targetView.setClipToPadding(false);
+        }
+    }
+
 
     private void addBottomLine() {
         View bottomLineView = new View(getContext());
@@ -166,6 +173,7 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
         }
         this.selectedInfo = nextTabInfo;
     }
+
 
     private void addBackground() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.hi_bottom_layout_bg, null);

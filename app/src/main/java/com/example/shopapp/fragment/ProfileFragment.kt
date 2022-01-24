@@ -85,7 +85,7 @@ class ProfileFragment : HiBaseFragment() {
             if (profile.isLogin) profile.userName else getString(R.string.profile_not_login)
         val loginDesc = layoutView.findViewById<TextView>(R.id.login_desc)
         loginDesc.text =
-            if (profile.isLogin) getString(R.string.profile_welcome_back) else getString(
+            if (profile.isLogin) getString(R.string.profile_login_desc_welcome_back) else getString(
                 R.string.profile_relock_all
             )
         val userAvatar = layoutView.findViewById<ImageView>(R.id.user_avatar)

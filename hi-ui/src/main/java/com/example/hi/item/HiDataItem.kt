@@ -1,64 +1,78 @@
 package com.example.hi.item
+
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-/***
- * 通用的adapter加载使用的数据item
- * @param <DATA>  当前item对应的数据bean
- * @param <VH> 当前item对应的ViewHolder
- */
-abstract class HiDataItem<DATA, VH : RecyclerView.ViewHolder>(data: DATA) {
 
-    private lateinit var adapter: HiAdapter
-
+abstract class HiDataItem<DATA, VH : RecyclerView.ViewHolder>(data: DATA? = null) {
+    val TAG: String = "HiDataItem";
+    var hiAdapter: HiAdapter? = null
     var mData: DATA? = null
 
     init {
-        mData = data
+        this.mData = data
     }
 
-    /***
-     * 当前item的数据绑定的操作
-     * @param position 当前的item所处的位置
+    /**
+     * 绑定数据
      */
-    abstract fun onBindData(holder: RecyclerView.ViewHolder, position: Int)
+    abstract fun onBindData(holder: VH, position: Int)
 
-    /****
-     * 当前的item 对应的布局资源文件id
+    /**
+     * 返回该item的布局资源id
      */
     open fun getItemLayoutRes(): Int {
         return -1
     }
 
-    /***
-     * 当前item使用的布局View
+    /**
+     *返回该item的视图view
      */
     open fun getItemView(parent: ViewGroup): View? {
         return null
     }
 
     fun setAdapter(adapter: HiAdapter) {
-        this.adapter = adapter
+        this.hiAdapter = adapter
     }
 
-    /***
-     * 刷新item
+    /**
+     * 刷新列表
      */
     fun refreshItem() {
-        adapter.refreshItem(this)
+        if (hiAdapter != null) hiAdapter!!.refreshItem(this)
     }
 
-    /***
-     * 删除item
+    /**
+     * 从列表上移除
      */
     fun removeItem() {
-        adapter.removeItem(this)
+        if (hiAdapter != null) hiAdapter!!.removeItem(this)
     }
 
-    /***
-     *当前item在列表中占据几列
+    /**
+     * 该item在列表上占几列,代表的宽度是沾满屏幕
      */
-    fun setSpanSize(): Int {
+    open fun getSpanSize(): Int {
         return 0
     }
+
+    /**
+     * 该item被滑进屏幕
+     */
+    open fun onViewAttachedToWindow(holder: VH) {
+
+    }
+
+    /**
+     * 该item被滑出屏幕
+     */
+    open fun onViewDetachedFromWindow(holder: VH) {
+
+    }
+
+   open fun onCreateViewHolder(parent: ViewGroup): VH? {
+        return null
+    }
+
 }
