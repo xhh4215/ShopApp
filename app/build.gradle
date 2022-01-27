@@ -62,6 +62,7 @@ dependencies {
     implementation project(path: ':hi-ui')
     api project(path: ':common')
     testImplementation 'junit:junit:4.+'
+    debugImplementation project(path: ':debug_tools')
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
