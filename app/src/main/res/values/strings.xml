@@ -39,5 +39,7 @@
     <string name="title_notice">公告</string>
     <string name="title_recommend">精选推荐</string>
     <string name="title_favorite">商品收藏</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

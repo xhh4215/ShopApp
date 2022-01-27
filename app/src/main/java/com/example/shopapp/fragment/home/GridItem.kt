@@ -2,6 +2,7 @@ package com.example.shopapp.fragment.home
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.example.hi.item.HiDataItem
 import com.example.library.utils.HiDisplayUtil
 import com.example.shopapp.R
 import com.example.shopapp.model.Subcategory
+import com.example.shopapp.route.HiRoute
 
 class GridItem(val list: List<Subcategory>) :
     HiDataItem<List<Subcategory>, RecyclerView.ViewHolder>(list) {
@@ -40,17 +42,11 @@ class GridItem(val list: List<Subcategory>) :
 
     inner class GridAdapter(val context: Context, val list: List<Subcategory>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        private lateinit var inflater: LayoutInflater
-
-        init {
-            inflater = LayoutInflater.from(context)
-        }
+        private var inflater: LayoutInflater = LayoutInflater.from(context)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             val view = inflater.inflate(R.layout.layout_home_op_grid_item, parent, false)
             return object : RecyclerView.ViewHolder(view) {
-
-
             }
         }
 
@@ -61,6 +57,12 @@ class GridItem(val list: List<Subcategory>) :
             holder.itemView.findViewById<TextView>(R.id.item_title).text =
                 subcategory.subcategoryName
             holder.itemView.setOnClickListener {
+                //是应该跳转到类目的商品列表页的
+                val bundle = Bundle()
+                bundle.putString("categoryId", subcategory.categoryId)
+                bundle.putString("subcategoryId", subcategory.subcategoryId)
+                bundle.putString("categoryTitle", subcategory.subcategoryName)
+                HiRoute.startActivity(context!!, bundle, HiRoute.Destination.GOODS_LIST)
 
             }
 

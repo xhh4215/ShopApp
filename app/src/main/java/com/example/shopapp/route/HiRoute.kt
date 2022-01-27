@@ -25,8 +25,7 @@ object HiRoute {
         ACCOUNT_REGISTRATION("注册", "/account/registration"),
         ACCOUNT_LOGIN("登陆", "/account/login"),
         DEGRADE_GLOBAL("全局降级页", "/degrade/global/activity")
-        //登录
-        //注册
+
     }
 
     fun startActivity(
