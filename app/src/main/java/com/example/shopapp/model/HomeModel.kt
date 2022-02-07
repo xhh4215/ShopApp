@@ -1,11 +1,17 @@
 package com.example.shopapp.model
 
+import android.os.Parcelable
+import android.text.TextUtils
+import androidx.versionedparcelable.ParcelField
+import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
+
 
 data class HomeModel(
     val bannerList: List<HomeBanner>?,
     val subcategoryList: List<Subcategory>?,
     val goodsList: List<GoodsModel>?
-)
+) : Serializable
 
 /**
  * {
@@ -14,7 +20,8 @@ data class HomeModel(
 "goodsCount": "1"
 }
  */
-data class TabCategory(val categoryId: String, val categoryName: String, val goodsCount: String)
+data class TabCategory(val categoryId: String, val categoryName: String, val goodsCount: String) :
+    Serializable
 
 
 /**
@@ -38,7 +45,7 @@ data class HomeBanner(
     val title: String,
     val type: String,
     val url: String
-) {
+) : Serializable {
     companion object {
         const val TYPE_GOODS = "goods"
         const val TYPE_RECOMMEND = "recommend"
@@ -63,7 +70,7 @@ data class Subcategory(
     val subcategoryIcon: String,
     val subcategoryId: String,
     val subcategoryName: String
-)
+) : Serializable
 
 /**
  * "goodsId": "1580374361011",
@@ -92,6 +99,7 @@ data class Subcategory(
 "createTime": "2020-01-30 16:52:41",
 "sliderImage": "https://o.devio.org/images/as/goods/images/2018-12-21/5c3672e33377b65d5f1bef488686462b.jpeg"
  */
+@Parcelize
 data class GoodsModel(
     val categoryId: String,
     val completedNumText: String,
@@ -100,18 +108,25 @@ data class GoodsModel(
     val goodsName: String,
     val groupPrice: String,
     val hot: Boolean,
-    val joinedAvatars: List<SliderImage>,
+    val joinedAvatars: List<SliderImage>?,
     val marketPrice: String,
     val sliderImage: String,
-    val sliderImages: List<SliderImage>,
+    val sliderImages: List<SliderImage>?,
     val tags: String
-)
+) : Serializable,Parcelable
 
 data class SliderImage(
     val type: Int,
     val url: String
-)
+) : Serializable
 
-data class GoodsList(val total: Int, val list: List<GoodsModel>) {
+data class GoodsList(val total: Int, val list: List<GoodsModel>)
 
+
+fun selectPrice(groupPrice: String?, marketPrice: String?): String? {
+    var price: String? = if (TextUtils.isEmpty(marketPrice)) groupPrice else marketPrice
+    if (price?.startsWith("¥") != true) {
+        price = "¥".plus(price)
+    }
+    return price
 }

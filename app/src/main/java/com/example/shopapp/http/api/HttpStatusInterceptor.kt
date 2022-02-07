@@ -13,10 +13,10 @@ class HttpStatusInterceptor : HiInterceptor {
             Log.e("code","${response.code}")
             when (response.code) {
                 HiResponse.RC_NEED_LOGIN -> {
-//                    HiRoute.startActivity(
-//                        null,
-//                        destination = HiRoute.Destination.ACCOUNT_LOGIN
-//                    )
+                    HiRoute.startActivity(
+                        null,
+                        destination = HiRoute.Destination.ACCOUNT_LOGIN
+                    )
                 }
                 HiResponse.RC_AUTH_TOKEN_EXPIRED , (HiResponse.RC_AUTH_TOKEN_INVALID) , (
                         HiResponse.RC_USER_FORBID) -> {

@@ -39,7 +39,11 @@
     <string name="title_notice">公告</string>
     <string name="title_recommend">精选推荐</string>
     <string name="title_favorite">商品收藏</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="shop_desc">商品数量：%s 已拼:%s</string>
+
+    <string name="item_similar_title"> 相似商品</string>
+    <string name="detail_favorite_success">收藏成功</string>
+    <string name="detail_cancel_favorite">取消收藏成功</string>
+    <string name="detail_order_action">\n立即购买</string>
 
 </resources>

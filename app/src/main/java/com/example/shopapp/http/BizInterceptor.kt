@@ -1,8 +1,8 @@
 package com.example.shopapp.http
 
 import android.util.Log
-import com.example.common.utils.SPUtil
 import com.example.library.restful.HiInterceptor
+import com.example.shopapp.biz.account.AccountManager
 
 /***
  * @author 栾桂明
@@ -13,12 +13,11 @@ class BizInterceptor : HiInterceptor {
     override fun intercept(chain: HiInterceptor.Chain): Boolean {
         if (chain.isRequestPeriod) {
             val request = chain.request()
-            val boarding = SPUtil.getString("boarding-pass") ?: ""
-            request.addHeader("boarding-pass", boarding)
+            request.addHeader("boarding-pass", AccountManager.getBoardingPass() ?: "")
             request.addHeader("auth-token", "MTU5Mjg1MDg3NDcwNw11.26==")
         } else if (chain.response() != null) {
             Log.e("BizInterceptor", chain.request()!!.endPointUrl())
-            Log.e("BizInterceptor", chain.response()!!.rawData)
+            chain.response()!!.rawData?.let { Log.e("BizInterceptor", it) }
 
         }
         return false

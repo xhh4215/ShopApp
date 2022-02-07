@@ -14,7 +14,7 @@ import com.example.common.tab.HiTabViewAdapter;
 import com.example.hi.bottom.HiTabBottomInfo;
 import com.example.hi.bottom.HiTabBottomLayout;
 import com.example.shopapp.R;
-import com.example.shopapp.fragment.category.CategoryFragment;
+ import com.example.shopapp.fragment.category.CategoryFragment;
 import com.example.shopapp.fragment.FavoriteFragment;
 import com.example.shopapp.fragment.HomePageFragment;
 import com.example.shopapp.fragment.ProfileFragment;

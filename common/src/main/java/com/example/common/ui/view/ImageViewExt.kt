@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.media.Image
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintSet
@@ -12,9 +13,21 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
+import com.example.library.utils.HiViewUtil
 
 fun ImageView.loadUrl(url: String) {
     Glide.with(this).load(url).into(this)
+}
+fun ImageView.loadUrl(url: String, callback: (Drawable) -> Unit) {
+    //you cannot load url from destory activity
+    if (HiViewUtil.isActivityDestroyed(context)) return
+    Glide.with(context).load(url).into(object : SimpleTarget<Drawable>() {
+        override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+            callback(resource)
+        }
+    })
 }
 
 fun ImageView.loadCircleUrl(url: String) {

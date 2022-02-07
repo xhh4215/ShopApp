@@ -11,14 +11,16 @@
         </attr>
         <attr name="inputTextAppearance" format="reference" />
         <attr name="titleTextAppearance" format="reference" />
-        <attr name="topLineTextAppearance" format="reference" />
-        <attr name="bottomLineTextAppearance" format="reference" />
+        <attr name="topLineAppearance" format="reference" />
+        <attr name="bottomLineAppearance" format="reference" />
     </declare-styleable>
     <!--    输入框文本的样式-->
     <declare-styleable name="inputTextAppearance">
         <attr name="hintColor" format="color" />
         <attr name="inputColor" format="color" />
         <attr name="textSize" format="dimension" />
+        <attr name="maxInputLength" format="integer" />
+
 
     </declare-styleable>
     <!--    输入框标题的样式-->

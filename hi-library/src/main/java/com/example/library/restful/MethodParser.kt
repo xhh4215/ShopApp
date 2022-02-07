@@ -14,6 +14,8 @@ import java.lang.reflect.Type
 class MethodParser(val baseUrl: String, method: Method) {
     private var replaceRelativeUrl: String? = null
 
+    private var cacheStrategy: Int = CacheStrategy.NET_ONLY
+
     //请求的域名
     private var domainUrl: String? = null
 
@@ -115,6 +117,9 @@ class MethodParser(val baseUrl: String, method: Method) {
                 is BaseUrl -> {
                     domainUrl = annotation.value
                 }
+                is CacheStrategy -> {
+                    cacheStrategy = annotation.value
+                }
                 else -> {
                     throw  IllegalStateException("can not handle method annotation" + annotation.javaClass.toString())
                 }
@@ -169,6 +174,8 @@ class MethodParser(val baseUrl: String, method: Method) {
                 if (replaceName != null && replacement != null) {
                     replaceRelativeUrl = relativeUrl.replace("{$replaceName}", replacement)
                 }
+            } else if (annotation is CacheStrategy) {
+                cacheStrategy = value as Int
             } else {
                 throw IllegalStateException("can not handle param annotation" + annotation.javaClass.toString())
             }
@@ -209,8 +216,9 @@ class MethodParser(val baseUrl: String, method: Method) {
         request.parameters = parameters
         request.httpMethod = httpMethod
         request.returnType = returnType
-        request.relativeUrl = replaceRelativeUrl?:relativeUrl
+        request.relativeUrl = replaceRelativeUrl ?: relativeUrl
         request.formPost = formPost
+        request.cacheStrategy = cacheStrategy
         return request
     }
 

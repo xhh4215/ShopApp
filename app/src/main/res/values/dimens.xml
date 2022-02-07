@@ -20,5 +20,6 @@
     <dimen name="dp_110">110dp</dimen>
     <dimen name="dp_100">100dp</dimen>
     <dimen name="dp_3">3dp</dimen>
+    <dimen name="dp_30">30dp</dimen>
 
 </resources>

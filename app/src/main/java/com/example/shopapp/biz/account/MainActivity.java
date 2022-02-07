@@ -1,16 +1,21 @@
-package com.example.shopapp.biz;
+package com.example.shopapp.biz.account;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.example.common.ui.component.HiBaseActivity;
+import com.example.library.utils.HiDataBus;
 import com.example.library.utils.HiStatusBar;
 import com.example.shopapp.BuildConfig;
 import com.example.shopapp.R;
@@ -26,8 +31,12 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         HiStatusBar.INSTANCE.setStatusBar(this, true, Color.TRANSPARENT, false);
-        setContentView(R.layout.activity_main);
         logic = new MainActivityLogic(this, savedInstanceState);
+    }
+
+    @Override
+    public int layoutIdRes() {
+        return R.layout.activity_main;
     }
 
     @Override
@@ -44,6 +53,7 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
             fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

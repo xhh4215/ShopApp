@@ -1,8 +1,13 @@
 package com.example.library.restful
 
+import android.text.TextUtils
 import androidx.annotation.IntDef
+import com.example.library.restful.annotation.CacheStrategy
+import java.lang.Exception
 import java.lang.IllegalStateException
+import java.lang.StringBuilder
 import java.lang.reflect.Type
+import java.net.URLEncoder
 
 /***
  * @author 栾桂明
@@ -10,6 +15,8 @@ import java.lang.reflect.Type
  * @date 2021年12月22日
  */
 open class HiRequest {
+    private var cacheStrategyKey: String = ""
+    var cacheStrategy: Int = CacheStrategy.NET_ONLY
 
     //请求类型
     @METHOD
@@ -57,6 +64,36 @@ open class HiRequest {
             headers = mutableMapOf()
         }
         headers!![name] = value
+    }
+
+    fun getCacheKey(): String {
+        if (!TextUtils.isEmpty(cacheStrategyKey)) {
+            return cacheStrategyKey
+        }
+        val builder = StringBuilder()
+        val endUrl = endPointUrl()
+        builder.append(endUrl)
+        if (endUrl.indexOf("?") > 0 || endUrl.indexOf("&") > 0) {
+            builder.append("&")
+        } else {
+            builder.append("?")
+        }
+        if (parameters != null) {
+            for ((key, value) in parameters!!) {
+                try {
+                    val encodeValue = URLEncoder.encode(value, "UTF-8")
+                    builder.append(key).append("=").append(encodeValue).append("&")
+                } catch (e: Exception) {
+                    //ignore
+                }
+            }
+            builder.deleteCharAt(builder.length - 1)
+            cacheStrategyKey = builder.toString()
+        } else {
+            cacheStrategyKey = endUrl
+        }
+
+        return cacheStrategyKey
     }
 
 }

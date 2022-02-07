@@ -12,7 +12,7 @@ import com.example.shopapp.R
 import com.example.shopapp.databinding.ActivityDegradeGlobalBinding
 
 @Route(path = "/degrade/global/activity")
-class DegradeGlobalActivity : HiBaseActivity() {
+class DegradeGlobalActivity : HiBaseActivity<ActivityDegradeGlobalBinding>() {
     @Autowired
     @JvmField
     var degrade_title: String? = null
@@ -25,26 +25,32 @@ class DegradeGlobalActivity : HiBaseActivity() {
     @JvmField
     var degrade_action: String? = null
 
-    private lateinit var deGardeDataBinding: ActivityDegradeGlobalBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+
+    override fun layoutIdRes(): Int {
+        return R.layout.activity_degrade_global
+    }
+
+
+    override fun initData() {
+
         HiRoute.inject(this)
-        deGardeDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_degrade_global)
-        deGardeDataBinding.emptyView.setIcon(R.string.if_unexpected1)
+        dataBinding.emptyView.setIcon(R.string.if_unexpected1)
         if (degrade_title != null) {
-            deGardeDataBinding.emptyView.setTitle(degrade_title!!)
+            dataBinding.emptyView.setTitle(degrade_title!!)
         }
         if (degrade_desc != null) {
-            deGardeDataBinding.emptyView.setDesc(degrade_desc!!)
+            dataBinding.emptyView.setDesc(degrade_desc!!)
         }
         if (degrade_action != null) {
-            deGardeDataBinding.emptyView.setHelperAction(listener = {
+            dataBinding.emptyView.setHelperAction(listener = {
                 Toast.makeText(this, "错误解决方法", Toast.LENGTH_SHORT).show()
                 HiRoute.startActivity4Browser(url = degrade_action!!)
             })
         }
-        deGardeDataBinding.actionBack.setOnClickListener {
+        dataBinding.actionBack.setOnClickListener {
             onBackPressed()
         }
     }
+
+
 }

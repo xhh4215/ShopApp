@@ -12,23 +12,24 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ShopApp"
-         >
+        android:theme="@style/Theme.ShopApp">
+        <activity
+            android:name=".biz.detail.DetailActivity"
+            android:exported="false" />
         <activity
             android:name=".biz.goods.GoodsListActivity"
             android:exported="false" />
-
         <activity
             android:name=".route.DegradeGlobalActivity"
             android:exported="false" />
         <activity
-            android:name=".biz.RegistrationActivity"
+            android:name=".biz.account.RegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".biz.LoginActivity"
+            android:name=".biz.account.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".biz.MainActivity"
+            android:name=".biz.account.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

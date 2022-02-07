@@ -1,6 +1,7 @@
 package com.example.shopapp.fragment.home
 
 import android.content.Context
+import android.os.Bundle
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
@@ -11,22 +12,30 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common.ui.view.loadUrl
 import com.example.hi.item.HiDataItem
+import com.example.hi.item.HiViewHolder
 import com.example.library.utils.HiDisplayUtil
 import com.example.shopapp.R
 import com.example.shopapp.model.GoodsModel
+import com.example.shopapp.model.selectPrice
+import com.example.shopapp.route.HiRoute
 
-class GoodItem(private val goodsModel: GoodsModel, val hotTab: Boolean) :
-    HiDataItem<GoodsModel, RecyclerView.ViewHolder>(goodsModel) {
+open class GoodItem(val goodsModel: GoodsModel, val hotTab: Boolean) :
+    HiDataItem<GoodsModel, HiViewHolder>(goodsModel) {
     val MAX_TAG_SIZE = 3
-    override fun onBindData(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindData(holder: HiViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.itemView.findViewById<ImageView>(R.id.item_image).loadUrl(goodsModel.sliderImage)
+
         holder.itemView.findViewById<TextView>(R.id.item_title).text = goodsModel.goodsName
-        holder.itemView.findViewById<TextView>(R.id.item_price).text = goodsModel.marketPrice
+
+        holder.itemView.findViewById<TextView>(R.id.item_price).text =
+            selectPrice(goodsModel.groupPrice, goodsModel.marketPrice)
+
         holder.itemView.findViewById<TextView>(R.id.item_count).text = goodsModel.completedNumText
-        holder.itemView.findViewById<TextView>(R.id.item_count).text = goodsModel.completedNumText
+
         val labelContainer = holder.itemView.findViewById<LinearLayout>(R.id.item_label_container)
-        if (!TextUtils.isEmpty(goodsModel.tags)) {
+       if (labelContainer!=null){
+            if (!TextUtils.isEmpty(goodsModel.tags)) {
             labelContainer.visibility = View.VISIBLE
             val splits = goodsModel.tags.split(" ")
             for (index in splits.indices) {
@@ -52,6 +61,7 @@ class GoodItem(private val goodsModel: GoodsModel, val hotTab: Boolean) :
             labelContainer.visibility = View.GONE
         }
 
+       }
         if (!hotTab) {
             val margin = HiDisplayUtil.dp2px(2f)
             val layoutParams = holder.itemView.layoutParams as RecyclerView.LayoutParams
@@ -65,19 +75,27 @@ class GoodItem(private val goodsModel: GoodsModel, val hotTab: Boolean) :
             }
             holder.itemView.layoutParams = layoutParams
         }
+        holder.itemView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("goodsId", goodsModel.goodsId)
+            bundle.putParcelable("goodsModel", goodsModel)
+            HiRoute.startActivity(context, bundle, HiRoute.Destination.DETAIL_MAIN)
+        }
     }
 
 
     private fun createLabelView(context: Context, withLeftMargin: Boolean): TextView {
         val labelTextView = TextView(context)
-        labelTextView.setTextColor(ContextCompat.getColor(context, R.color.color_eed))
+        labelTextView.setTextColor(ContextCompat.getColor(context, R.color.color_e75))
+        labelTextView.setBackgroundResource(R.drawable.shape_goods_label)
         labelTextView.textSize = 11f
         labelTextView.gravity = Gravity.CENTER
         val params = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
-            HiDisplayUtil.dp2px(14f)
+            HiDisplayUtil.dp2px(18f)
         )
         params.leftMargin = if (withLeftMargin) HiDisplayUtil.dp2px(5f) else 0
+        params.gravity = Gravity.CENTER_VERTICAL
         labelTextView.layoutParams = params
         return labelTextView
     }

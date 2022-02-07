@@ -1,10 +1,13 @@
 package com.example.common.ui.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.ColorDrawable
+import android.text.InputFilter
 import android.text.InputType
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -20,187 +23,208 @@ import com.example.common.R
  * @desc 一个自定义的文本输入框
  * @date 2022年1月3日
  */
-class InputItemLayout : LinearLayout {
 
+class InputItemLayout : LinearLayout {
     private lateinit var titleView: TextView
     private lateinit var editText: EditText
-    private var topLine: Line
     private var bottomLine: Line
+    private var topLine: Line
+    private var topPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private var bottomPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     constructor(context: Context) : this(context, null)
-
     constructor(context: Context, attributeSet: AttributeSet?) : this(context, attributeSet, 0)
-
-    constructor(context: Context, attributeSet: AttributeSet?, defStyleAttr: Int) : super(
+    constructor(context: Context, attributeSet: AttributeSet?, defStyle: Int) : super(
         context,
         attributeSet,
-        defStyleAttr
+        defStyle
     ) {
+
+        dividerDrawable = ColorDrawable()
+        showDividers = SHOW_DIVIDER_BEGINNING
+
+        //去加载 去读取 自定义sytle属性
         orientation = HORIZONTAL
-        val array: TypedArray =
-            context.obtainStyledAttributes(attributeSet, R.styleable.InputItemLayout)
-        // 解析输入的属性
-        val titleStyleId = array.getResourceId(R.styleable.InputItemLayout_titleTextAppearance, 0)
+
+        val array = context.obtainStyledAttributes(attributeSet, R.styleable.InputItemLayout)
+
+        //解析title 属性
         val title = array.getString(R.styleable.InputItemLayout_title)
-        parseTitleStyle(titleStyleId, title)
-        // 解析输入的属性
-        val inputStyleId = array.getResourceId(R.styleable.InputItemLayout_inputTextAppearance, 0)
+        val titleResId = array.getResourceId(R.styleable.InputItemLayout_titleTextAppearance, 0)
+        parseTitleStyle(title, titleResId)
+
+        //解析右侧的输入框属性
         val hint = array.getString(R.styleable.InputItemLayout_hint)
+        val inputResId = array.getResourceId(R.styleable.InputItemLayout_inputTextAppearance, 0)
         val inputType = array.getInteger(R.styleable.InputItemLayout_inputType, 0)
-        parseInputStyle(inputStyleId, hint, inputType)
-        //解析分割线属性
-        val bottomLineStyleId =
-            array.getResourceId(R.styleable.InputItemLayout_bottomLineTextAppearance, 0)
-        val topLineStyleId =
-            array.getResourceId(R.styleable.InputItemLayout_topLineTextAppearance, 0)
-        topLine = parseLineStyle(topLineStyleId)
+        parseInputStyle(hint, inputResId, inputType)
+
+        //上下分割线属性
+        val topResId = array.getResourceId(R.styleable.InputItemLayout_topLineAppearance, 0)
+        val bottomResId = array.getResourceId(R.styleable.InputItemLayout_bottomLineAppearance, 0)
+        topLine = parseLineStyle(topResId)
+        bottomLine = parseLineStyle(bottomResId)
+
         if (topLine.enable) {
             topPaint.color = topLine.color
             topPaint.style = Paint.Style.FILL_AND_STROKE
-            topPaint.strokeWidth = topLine.height.toFloat()
+            topPaint.strokeWidth = topLine.height
         }
-        bottomLine = parseLineStyle(bottomLineStyleId)
+
         if (bottomLine.enable) {
-            bottomPaint.color = topLine.color
+            bottomPaint.color = bottomLine.color
             bottomPaint.style = Paint.Style.FILL_AND_STROKE
-            bottomPaint.strokeWidth = topLine.height.toFloat()
+            bottomPaint.strokeWidth = bottomLine.height
         }
 
         array.recycle()
     }
 
-    /***
-     * 解析分割线的属性
-     */
+    @SuppressLint("CustomViewStyleable")
     private fun parseLineStyle(resId: Int): Line {
-        var line = Line()
+        val line = Line()
         val array = context.obtainStyledAttributes(resId, R.styleable.lineAppearance)
         line.color =
             array.getColor(
                 R.styleable.lineAppearance_color,
                 ContextCompat.getColor(context, R.color.color_d1d2)
             )
-        line.height =
-            array.getDimensionPixelOffset(R.styleable.lineAppearance_height, 0)
-        line.leftMargin = array.getDimensionPixelOffset(R.styleable.lineAppearance_leftMargin, 0)
-        line.rightMargin = array.getDimensionPixelOffset(R.styleable.lineAppearance_rightMargin, 0)
+        line.height = array.getDimensionPixelOffset(R.styleable.lineAppearance_height, 0).toFloat()
+        line.leftMargin =
+            array.getDimensionPixelOffset(R.styleable.lineAppearance_leftMargin, 0).toFloat()
+        line.rightMargin =
+            array.getDimensionPixelOffset(R.styleable.lineAppearance_rightMargin, 0).toFloat()
         line.enable = array.getBoolean(R.styleable.lineAppearance_enable, false)
+
         array.recycle()
         return line
     }
 
+
     inner class Line {
         var color = 0
-        var height = 0
-        var leftMargin = 0
-        var rightMargin = 0
-        var enable = false
-
+        var height = 0f
+        var leftMargin = 0f
+        var rightMargin = 0f;
+        var enable: Boolean = false
     }
 
-    /***
-     * 解析输入的属性
-     */
-    private fun parseInputStyle(resId: Int, hint: String?, inputType: Int) {
+    @SuppressLint("CustomViewStyleable")
+    private fun parseInputStyle(hint: String?, resId: Int, inputType: Int) {
+
         val array = context.obtainStyledAttributes(resId, R.styleable.inputTextAppearance)
+
         val hintColor = array.getColor(
             R.styleable.inputTextAppearance_hintColor,
-            resources.getColor(R.color.color_d1d2)
+            ContextCompat.getColor(context, R.color.color_d1d2)
+
         )
         val inputColor = array.getColor(
             R.styleable.inputTextAppearance_inputColor,
-            resources.getColor(R.color.color_565)
+            ContextCompat.getColor(context, R.color.color_565)
         )
+        //px
         val textSize = array.getDimensionPixelSize(
             R.styleable.inputTextAppearance_textSize,
             applyUnit(TypedValue.COMPLEX_UNIT_SP, 15f)
         )
+
+        val maxInputLength = array.getInteger(R.styleable.inputTextAppearance_maxInputLength, 0)
+
         editText = EditText(context)
+        if (maxInputLength > 0) {
+            editText.filters = arrayOf(InputFilter.LengthFilter(maxInputLength))//最多可输入的字符数
+        }
+        editText.setPadding(0, 0, 0, 0)
         val params = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
         params.weight = 1f
         editText.layoutParams = params
+
+
         editText.hint = hint
-        editText.setHintTextColor(hintColor)
         editText.setTextColor(inputColor)
+        editText.setHintTextColor(hintColor)
+        editText.gravity = Gravity.LEFT or (Gravity.CENTER)
         editText.setBackgroundColor(Color.TRANSPARENT)
         editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize.toFloat())
-        editText.gravity = Gravity.LEFT or (Gravity.CENTER)
-        when (inputType) {
-            0 -> {
-                editText.inputType = InputType.TYPE_CLASS_TEXT
-            }
-            1 -> {
-                editText.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD or (InputType.TYPE_CLASS_TEXT)
-            }
-            2 -> {
-                editText.inputType = InputType.TYPE_CLASS_NUMBER
-            }
+
+        /**
+         * <enum name="text" value="0"></enum>
+         * <enum name="password" value="1"></enum>
+         * <enum name="number" value="2"></enum>
+         */
+        if (inputType == 0) {
+            editText.inputType = InputType.TYPE_CLASS_TEXT
+        } else if (inputType == 1) {
+            editText.inputType =
+                InputType.TYPE_TEXT_VARIATION_PASSWORD or (InputType.TYPE_CLASS_TEXT)
+        } else if (inputType == 2) {
+            editText.inputType = InputType.TYPE_CLASS_NUMBER
         }
+
         addView(editText)
         array.recycle()
     }
 
-    /***
-     * 解析title资源属性
-     */
-    private fun parseTitleStyle(resId: Int, title: String?) {
+    @SuppressLint("CustomViewStyleable")
+    private fun parseTitleStyle(title: String?, resId: Int) {
         val array = context.obtainStyledAttributes(resId, R.styleable.titleTextAppearance)
         val titleColor = array.getColor(
             R.styleable.titleTextAppearance_titleColor,
             resources.getColor(R.color.color_565)
         )
-        val titleSize =
-            array.getDimensionPixelSize(
-                R.styleable.titleTextAppearance_titleSize,
-                applyUnit(TypedValue.COMPLEX_UNIT_SP, 15f)
-            )
-        val minWidth = array.getDimensionPixelOffset(R.styleable.titleTextAppearance_minWidth, 0)
-        val leftPadding =
-            array.getDimensionPixelOffset(R.styleable.titleTextAppearance_leftPadding, 0)
-        titleView = TextView(context)
-        titleView.setTextColor(titleColor)
-        titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize.toFloat())
 
-        titleView.layoutParams = LayoutParams(
-            LayoutParams.WRAP_CONTENT,
-            LayoutParams.MATCH_PARENT
+        //px
+        val titleSize = array.getDimensionPixelSize(
+            R.styleable.titleTextAppearance_titleSize,
+            applyUnit(TypedValue.COMPLEX_UNIT_SP, 15f)
         )
 
+        val minWidth = array.getDimensionPixelOffset(R.styleable.titleTextAppearance_minWidth, 0)
+
+        titleView = TextView(context)
+        titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize.toFloat())  //sp---当做sp在转换一次
+        titleView.setTextColor(titleColor)
+        titleView.layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
         titleView.minWidth = minWidth
-        titleView.setPadding(leftPadding, 0, 0, 0)
         titleView.gravity = Gravity.LEFT or (Gravity.CENTER)
         titleView.text = title
+
+
         addView(titleView)
+
         array.recycle()
     }
 
-    private var topPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-    private var bottomPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+
+
+        //巨坑
         if (topLine.enable) {
             canvas!!.drawLine(
-                topLine.leftMargin.toFloat(), 0f,
-                (measuredWidth - topLine.rightMargin).toFloat(), 0f, topPaint
+                topLine.leftMargin,
+                0f,
+                measuredWidth - topLine.rightMargin,
+                0f,
+                topPaint
             )
-
         }
+
         if (bottomLine.enable) {
             canvas!!.drawLine(
-                bottomLine.leftMargin.toFloat(),
-                (height - bottomLine.height).toFloat(),
-                (measuredWidth - bottomLine.rightMargin).toFloat(),
-                (height - bottomLine.height).toFloat(),
+                bottomLine.leftMargin,
+                height - bottomLine.height,
+                measuredWidth - bottomLine.rightMargin,
+                height - bottomLine.height,
                 bottomPaint
             )
         }
     }
 
-    /***
-     * 将Android使用的单位  sp  dp 转化为px
-     */
-    private fun applyUnit(unit: Int, value: Float): Int {
-        return TypedValue.applyDimension(unit, value, resources.displayMetrics).toInt()
+    private fun applyUnit(applyUnit: Int, value: Float): Int {
+        return TypedValue.applyDimension(applyUnit, value, resources.displayMetrics).toInt()
     }
 
     fun getTitleView(): TextView {
@@ -210,5 +234,4 @@ class InputItemLayout : LinearLayout {
     fun getEditText(): EditText {
         return editText
     }
-
 }

@@ -2,7 +2,6 @@ package com.example.shopapp.biz.goods
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired

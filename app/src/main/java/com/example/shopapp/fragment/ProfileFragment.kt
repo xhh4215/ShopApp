@@ -1,7 +1,5 @@
 package com.example.shopapp.fragment
 
-import android.app.Activity
-import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
@@ -14,6 +12,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.example.common.ui.component.HiBaseFragment
 import com.example.common.ui.view.loadCircleUrl
 import com.example.common.ui.view.loadCorner
@@ -23,6 +22,7 @@ import com.example.library.restful.HiCallBack
 import com.example.library.restful.HiResponse
 import com.example.library.utils.HiDisplayUtil
 import com.example.shopapp.R
+import com.example.shopapp.biz.account.AccountManager
 import com.example.shopapp.http.ApiFactory
 import com.example.shopapp.http.api.AccountApi
 import com.example.shopapp.model.CourseNotice
@@ -31,7 +31,6 @@ import com.example.shopapp.model.UserProfile
 import com.example.shopapp.route.HiRoute
 
 class ProfileFragment : HiBaseFragment() {
-    private val REQUEST_CODE_LOGIN_PROFILE = 1001
     override fun getLayoutId(): Int {
         return R.layout.fragment_profile
     }
@@ -39,6 +38,7 @@ class ProfileFragment : HiBaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         queryLoginUserData()
+        queryCourseNotice()
     }
 
     private fun queryCourseNotice() {
@@ -60,23 +60,14 @@ class ProfileFragment : HiBaseFragment() {
     }
 
     private fun queryLoginUserData() {
-        ApiFactory.create(AccountApi::class.java).profile().enqueue(object :
-            HiCallBack<UserProfile> {
-            override fun onSuccess(response: HiResponse<UserProfile>) {
-                val profile = response.data
-                if (response.code == HiResponse.SUCCESS && profile != null) {
-                    queryCourseNotice()
-                    //请求成功处理UI
-                    updateUI(profile)
-                } else {
-                    showToast("${response.msg}")
-                }
+        AccountManager.getUserProfile(this, observer = Observer { profile ->
+            if (profile != null) {
+                updateUI(profile)
+            } else {
+                showToast("获取用户信息失败")
             }
 
-            override fun onFailed(throwable: Throwable) {
-                showToast("${throwable.message}")
-            }
-        })
+        }, false)
     }
 
     private fun updateUI(profile: UserProfile) {
@@ -94,11 +85,9 @@ class ProfileFragment : HiBaseFragment() {
         } else {
             userAvatar.setImageResource(R.drawable.ic_avatar_default)
             userName.setOnClickListener {
-                HiRoute.startActivity(
-                    context,
-                    destination = HiRoute.Destination.ACCOUNT_LOGIN,
-                    requestCode = REQUEST_CODE_LOGIN_PROFILE
-                )
+                AccountManager.login(context, observer = Observer {
+                    queryLoginUserData()
+                })
             }
         }
         val itemCollection = layoutView.findViewById<TextView>(R.id.tab_item_collection)
@@ -111,13 +100,6 @@ class ProfileFragment : HiBaseFragment() {
         itemLearn.text =
             spannableTabItem(profile.favoriteCount, getString(R.string.profile_study_time))
         updateBanner(profile.bannerNoticeList)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_LOGIN_PROFILE && resultCode == Activity.RESULT_OK && data != null) {
-            queryLoginUserData()
-        }
     }
 
     private fun updateBanner(bannerList: List<Notice>?) {

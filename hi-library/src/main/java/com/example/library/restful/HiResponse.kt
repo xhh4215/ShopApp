@@ -41,6 +41,6 @@ open class HiResponse<T> {
     var msg: String? = null;
 
     fun successful(): Boolean {
-        return code == SUCCESS
+        return code == SUCCESS || code == CACHE_SUCCESS
     }
 }

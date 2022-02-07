@@ -10,6 +10,7 @@ import com.example.common.ui.component.HiAbsListFragment
 import com.example.hi.item.HiDataItem
 import com.example.library.restful.HiCallBack
 import com.example.library.restful.HiResponse
+import com.example.library.restful.annotation.CacheStrategy
 import com.example.shopapp.http.ApiFactory
 import com.example.shopapp.http.api.HomeApi
 import com.example.shopapp.model.HomeModel
@@ -31,9 +32,9 @@ open class HomeTabFragment : HiAbsListFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         categoryId = arguments?.getString("categoryId", DEFAULT_HOT_TAB_CATEGORY_ID)
         super.onViewCreated(view, savedInstanceState)
-        queryCategoryList()
+        queryCategoryList(CacheStrategy.CACHE_FIRST)
         enableLoadMore {
-            queryCategoryList()
+            queryCategoryList(CacheStrategy.NET_ONLY)
         }
     }
 
@@ -42,12 +43,13 @@ open class HomeTabFragment : HiAbsListFragment() {
         return if (isHotTab) super.createLayoutManager() else GridLayoutManager(context, 2)
     }
 
-    private fun queryCategoryList() {
-        ApiFactory.create(HomeApi::class.java).queryTabCategoryList(categoryId!!, pageIndex, 10)
+    private fun queryCategoryList(cacheStrategy: Int) {
+        ApiFactory.create(HomeApi::class.java)
+            .queryTabCategoryList(cacheStrategy, categoryId!!, pageIndex, 10)
             .enqueue(object : HiCallBack<HomeModel> {
                 override fun onSuccess(response: HiResponse<HomeModel>) {
                     if (response.successful() && response.data != null) {
-                        Log.e("tag", response.msg)
+                        response.msg?.let { Log.e("tag", it) }
                         updateUI(response.data!!)
 
                     } else {
@@ -63,7 +65,7 @@ open class HomeTabFragment : HiAbsListFragment() {
 
     override fun onRefresh() {
         super.onRefresh()
-        queryCategoryList()
+        queryCategoryList(CacheStrategy.NET_CACHE)
     }
 
 

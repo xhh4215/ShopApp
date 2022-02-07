@@ -78,7 +78,7 @@ public class HiTabTopLayout extends HorizontalScrollView implements IHiTabLayout
         }
 
         for (int i = 0; i < infoList.size(); i++) {
-            HiTabTopInfo<?> info = infoList.get(i);
+            final  HiTabTopInfo<?> info = infoList.get(i);
             HiTabTop tab = new HiTabTop(getContext());
             tabSelectedListenerLists.add(tab);
             tab.setHiTabInfo(info);

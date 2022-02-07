@@ -1,11 +1,9 @@
-package com.example.shopapp.biz
+package com.example.shopapp.biz.account
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.common.ui.component.HiBaseActivity
 import com.example.library.restful.HiCallBack
@@ -15,27 +13,25 @@ import com.example.shopapp.R
 import com.example.shopapp.databinding.ActivityRegistBinding
 import com.example.shopapp.http.api.AccountApi
 import com.example.shopapp.http.ApiFactory
+
 @Route(path = "/account/registration")
-class RegistrationActivity : HiBaseActivity() {
-    private lateinit var registerDataBinding: ActivityRegistBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+class RegistrationActivity : HiBaseActivity<ActivityRegistBinding>() {
+    override fun initData() {
         HiStatusBar.setStatusBar(this, true, translucent = false)
-        registerDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_regist)
-        registerDataBinding.actionBack.setOnClickListener {
+        dataBinding.actionBack.setOnClickListener {
             onBackPressed()
         }
-        registerDataBinding.actionSubmit.setOnClickListener {
+        dataBinding.actionSubmit.setOnClickListener {
             submit()
         }
     }
 
     private fun submit() {
-        val orderId = registerDataBinding.inputItemOrderId.getEditText().text.toString()
-        val moocId = registerDataBinding.inputItemMoocId.getEditText().text.toString()
-        val username = registerDataBinding.inputItemUsername.getEditText().text.toString()
-        val pwd = registerDataBinding.inputItemPwd.getEditText().text.toString()
-        val pwdSec = registerDataBinding.inputItemPwdCheck.getEditText().text.toString()
+        val orderId = dataBinding.inputItemOrderId.getEditText().text.toString()
+        val moocId = dataBinding.inputItemMoocId.getEditText().text.toString()
+        val username = dataBinding.inputItemUsername.getEditText().text.toString()
+        val pwd = dataBinding.inputItemPwd.getEditText().text.toString()
+        val pwdSec = dataBinding.inputItemPwdCheck.getEditText().text.toString()
         if (TextUtils.isEmpty(orderId)
             || (TextUtils.isEmpty(moocId))
             || (TextUtils.isEmpty(username))
@@ -66,8 +62,8 @@ class RegistrationActivity : HiBaseActivity() {
 
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
 
+    override fun layoutIdRes(): Int {
+        return R.layout.activity_regist
     }
 }

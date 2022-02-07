@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:background="@color/color_background"
         android:orientation="vertical"
-        tools:context=".biz.LoginActivity">
+        tools:context=".biz.account.LoginActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -65,12 +65,12 @@
             android:layout_marginTop="@dimen/dp_10"
             android:background="@color/color_white"
             android:paddingLeft="@dimen/dp_16"
-             app:bottomLineTextAppearance="@style/leftMarginLineAppearance"
+             app:bottomLineAppearance="@style/leftMarginLineAppearance"
             app:hint="@string/input_item_hint_user_name"
             app:inputTextAppearance="@style/inputTextAppearance"
             app:title="@string/input_item_title_user_name"
             app:titleTextAppearance="@style/titleTextAppearance"
-            app:topLineTextAppearance="@style/lineAppearance" />
+            app:topLineAppearance="@style/lineAppearance" />
 
         <com.example.common.ui.view.InputItemLayout
             android:id="@+id/input_item_password"
@@ -78,12 +78,12 @@
             android:layout_height="@dimen/dp_50"
             android:background="@color/color_white"
             android:paddingLeft="@dimen/dp_16"
-            app:bottomLineTextAppearance="@style/lineAppearance"
+            app:bottomLineAppearance="@style/lineAppearance"
             app:hint="@string/input_item_hint_user_password"
             app:inputTextAppearance="@style/inputTextAppearance"
             app:title="@string/input_item_title_user_password"
             app:titleTextAppearance="@style/titleTextAppearance"
-            app:topLineTextAppearance="@style/lineAppearance" />
+            app:topLineAppearance="@style/lineAppearance" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/action_login"

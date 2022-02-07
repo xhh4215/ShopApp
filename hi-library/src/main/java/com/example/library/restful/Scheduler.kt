@@ -1,5 +1,13 @@
 package com.example.library.restful
 
+import android.util.Log
+import android.widget.Toast
+import com.example.library.cache.HiStorage
+import com.example.library.executor.HiExecutor
+import com.example.library.restful.annotation.CacheStrategy
+import com.example.library.utils.AppGlobals
+import com.example.library.utils.MainHandler
+
 /***
  * 代理call实现拦截器的派发
  */
@@ -33,20 +41,53 @@ class Scheduler(
          */
         override fun enqueue(callBack: HiCallBack<T>) {
             dispatchInterceptor(request, null)
+            if (request.cacheStrategy == CacheStrategy.CACHE_FIRST) {
+                HiExecutor.execute(runnable = Runnable {
+                    val cacheResponse = readCache<T>()
+                    if (cacheResponse.data != null) {
+                        MainHandler.sendAtFrontOfQueue(runnable = Runnable {
+                            callBack.onSuccess(cacheResponse)
+                        })
+                    }
+                })
+            }
             delegate.enqueue(object : HiCallBack<T> {
                 override fun onSuccess(response: HiResponse<T>) {
                     dispatchInterceptor(request, response)
-                    if (callBack != null) {
-                        callBack.onSuccess(response)
-                    }
+                    saveCacheIfNeed(response)
+                    callBack.onSuccess(response)
                 }
 
                 override fun onFailed(throwable: Throwable) {
-                    if (callBack != null) callBack.onFailed(throwable)
+                    callBack.onFailed(throwable)
                 }
 
             })
 
+        }
+
+        private fun saveCacheIfNeed(response: HiResponse<T>) {
+            if (request.cacheStrategy == CacheStrategy.CACHE_FIRST
+                || request.cacheStrategy == CacheStrategy.NET_CACHE
+            ) {
+                if (response.data != null) {
+                    HiExecutor.execute(runnable = Runnable {
+                         HiStorage.saveCache(request.getCacheKey(), response.data)
+                    })
+                }
+            }
+        }
+
+
+        private fun <T> readCache(): HiResponse<T> {
+            val cacheKey = request.getCacheKey()
+            Log.e("read_http_request", cacheKey)
+            val cache = HiStorage.getCache<T>(cacheKey)
+            val cacheResponse = HiResponse<T>()
+            cacheResponse.data = cache
+            cacheResponse.code = HiResponse.CACHE_SUCCESS
+            cacheResponse.msg = "缓存获取成功"
+            return cacheResponse
         }
 
         /***
@@ -87,5 +128,8 @@ class Scheduler(
 
         }
 
+
     }
+
+
 }
