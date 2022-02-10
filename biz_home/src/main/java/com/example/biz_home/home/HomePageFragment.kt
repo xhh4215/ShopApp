@@ -17,7 +17,7 @@ import com.example.common.ui.component.HiBaseFragment
 import com.example.hi.bottom.HiTabBottomLayout
 import com.example.hi.common.IHiTabLayout
 import com.example.hi.top.HiTabTopInfo
-  import com.example.biz_home.model.TabCategory
+import com.example.biz_home.model.TabCategory
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomePageFragment : HiBaseFragment<FragmentHomeBinding>() {

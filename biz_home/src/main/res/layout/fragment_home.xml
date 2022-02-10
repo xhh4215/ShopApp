@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -11,7 +12,6 @@
         android:background="@color/color_white"
         android:gravity="center_horizontal"
         android:orientation="vertical">
-
         <com.example.hi.icfont.IconFontTextView
             android:id="@+id/search_container"
             android:layout_width="match_parent"

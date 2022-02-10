@@ -5,8 +5,6 @@
         <attr name="loop" format="boolean"></attr>
         <attr name="intervalTime" format="integer|reference"></attr>
     </declare-styleable>
-
-
     <declare-styleable name="HiSliderView">
         <attr name="menuItemWidth" format="dimension" />
         <attr name="menuItemHeight" format="dimension" />
@@ -16,6 +14,48 @@
         <attr name="menuItemTextColor" format="reference" />
         <attr name="menuItemBackgroundColor" format="color" />
         <attr name="menuItemSelectBackgroundColor" format="color" />
-
     </declare-styleable>
+
+    <declare-styleable name="HiNavigationBar">
+        <attr name="text_btn_text_size" format="dimension" />
+        <attr name="text_btn_text_color" format="color" />
+
+        <attr name="title_text_size" format="dimension" />
+        <attr name="title_text_size_with_subTitle" format="dimension" />
+        <attr name="title_text_color" format="color" />
+
+        <attr name="subTitle_text_size" format="dimension" />
+        <attr name="subTitle_text_color" format="color" />
+
+        <attr name="nav_icon_size" format="dimension" />
+        <attr name="nav_icon_color" format="color"></attr>
+        <attr name="nav_icon" format="string" />
+        <attr name="nav_title" format="string" />
+        <attr name="nav_subtitle" format="string" />
+
+        <attr name="hor_padding" format="dimension" />
+        <attr name="nav_line_color" format="color" />
+        <attr name="nav_line_height" format="dimension" />
+    </declare-styleable>
+
+    <attr name="hiNavigationStyle" format="reference" />
+
+    <style name="navigationStyle">
+        <item name="nav_icon_size">20sp</item>
+        <item name="nav_icon_color">@color/color_000</item>
+        <item name="hor_padding">8dp</item>
+
+        <item name="nav_line_color">@color/color_999</item>
+        <item name="nav_line_height">2px</item>
+
+        <!--       iconfont 字体资源-->
+        <item name="nav_icon">&#xe615;</item>
+        <item name="text_btn_text_size">16sp</item>
+        <item name="text_btn_text_color">@color/color_333</item>
+        <item name="title_text_size">18sp</item>
+        <item name="title_text_color">@color/color_000</item>
+        <item name="subTitle_text_size">@dimen/font_14</item>
+        <item name="title_text_size_with_subTitle">16sp</item>
+        <item name="subTitle_text_color">@color/color_000</item>
+    </style>
 </resources>

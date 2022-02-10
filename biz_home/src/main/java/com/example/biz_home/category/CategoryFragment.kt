@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.biz_home.R
 import com.example.biz_home.api.CategoryApi
@@ -20,13 +21,14 @@ import com.example.hi.bottom.HiTabBottomLayout
 import com.example.hi.slider.HiSliderView
 import com.example.library.restful.HiCallBack
 import com.example.library.restful.HiResponse
-  import com.example.common.http.ApiFactory
- import com.example.biz_home.model.Subcategory
+import com.example.common.http.ApiFactory
+import com.example.biz_home.model.Subcategory
 import com.example.biz_home.model.TabCategory
 import com.example.common.route.HiRoute
 
 class CategoryFragment : HiBaseFragment<FragmentCategoryBinding>() {
     private var emptyView: EmptyView? = null
+    private val viewModel: CategoryViewModel by viewModels()
     private var rootContainer: RelativeLayout? = null
     private var loadingView: View? = null
     private var sliderView: HiSliderView? = null
@@ -35,6 +37,7 @@ class CategoryFragment : HiBaseFragment<FragmentCategoryBinding>() {
     private val decoration = CategoryItemDecoration({ position ->
         subcategoryList[position].groupName
     }, SPAN_COUNT)
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_category
 
@@ -50,6 +53,7 @@ class CategoryFragment : HiBaseFragment<FragmentCategoryBinding>() {
         loadingView?.visibility = View.VISIBLE
         queryCategoryList()
     }
+
     private val spanSizeLookUp = object : GridLayoutManager.SpanSizeLookup() {
         override fun getSpanSize(position: Int): Int {
             var spanSize = 1
@@ -87,22 +91,15 @@ class CategoryFragment : HiBaseFragment<FragmentCategoryBinding>() {
             return spanSize
         }
     }
+
     private fun queryCategoryList() {
-        ApiFactory.create(CategoryApi::class.java).queryCategoryList()
-            .enqueue(object : HiCallBack<List<TabCategory>> {
-                override fun onSuccess(response: HiResponse<List<TabCategory>>) {
-                    if (response.successful() && response.data != null) {
-                        onQueryCategoryListSuccess(response.data!!)
-                    } else {
-                        showEmptyView()
-                    }
-                }
-
-                override fun onFailed(throwable: Throwable) {
-                    showEmptyView()
-                }
-
-            })
+        viewModel.queryCategoryList()?.observe(viewLifecycleOwner, {
+            if (it == null) {
+                showEmptyView()
+            } else {
+                onQueryCategoryListSuccess(it)
+            }
+        })
     }
 
     private fun onQueryCategoryListSuccess(data: List<TabCategory>) {
@@ -125,26 +122,21 @@ class CategoryFragment : HiBaseFragment<FragmentCategoryBinding>() {
         })
 
     }
+
     private val subcategoryList = mutableListOf<Subcategory>()
-    private val layoutManager = GridLayoutManager(context,SPAN_COUNT)
+    private val layoutManager = GridLayoutManager(context, SPAN_COUNT)
     private val groupSpanSizeOffset = SparseIntArray()
 
 
     private fun querySubcategoryList(categoryId: String) {
-        ApiFactory.create(CategoryApi::class.java).querySubcategoryList(categoryId)
-            .enqueue(object : HiCallBack<List<Subcategory>> {
-                override fun onSuccess(response: HiResponse<List<Subcategory>>) {
-                    if (response.successful() && response.data != null) {
-                        onQuerySubcategoryListSuccess(response.data!!)
-                        if (!subcategoryListCache.containsKey(categoryId)) {
-                            subcategoryListCache[categoryId] = response.data!!
-                        }
-                    }
+        viewModel?.querySubcategoryList(categoryId).observe(viewLifecycleOwner, {
+            if (it != null) {
+                onQuerySubcategoryListSuccess(it)
+                if (!subcategoryListCache.containsKey(categoryId)) {
+                    subcategoryListCache[categoryId] = it
                 }
-
-                override fun onFailed(throwable: Throwable) {
-                }
-            })
+            }
+        })
     }
 
     private fun onQuerySubcategoryListSuccess(data: List<Subcategory>) {
@@ -174,7 +166,7 @@ class CategoryFragment : HiBaseFragment<FragmentCategoryBinding>() {
                 bundle.putString("categoryId", subcategory.categoryId)
                 bundle.putString("subcategoryId", subcategory.subcategoryId)
                 bundle.putString("categoryTitle", subcategory.subcategoryName)
-                HiRoute.startActivity(context!!, bundle, HiRoute.Destination.GOODS_LIST)
+                HiRoute.startActivity(requireContext(), bundle, HiRoute.Destination.GOODS_LIST)
             }
         )
 
@@ -184,7 +176,7 @@ class CategoryFragment : HiBaseFragment<FragmentCategoryBinding>() {
     private fun showEmptyView() {
         if (!isAlive) return
         if (emptyView == null) {
-            emptyView = EmptyView(context!!)
+            emptyView = EmptyView(requireContext())
             emptyView?.setIcon(R.string.if_empty3)
             emptyView?.setDesc(getString(R.string.list_empty_desc))
             emptyView?.setButton(getString(R.string.list_empty_action), View.OnClickListener {

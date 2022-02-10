@@ -1,5 +1,6 @@
 package com.example.biz_home.notice
 
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.biz_home.R
@@ -29,10 +30,14 @@ class NoticeListActivity : HiBaseActivity<ActivityNoticeListBinding>() {
 
     private fun initUI() {
         val layoutManager = LinearLayoutManager(this)
+        dataBinding.navigationBar.setNavListener {
+            onBackPressed()
+        }
         adapter = HiAdapter(this)
         dataBinding.list.layoutManager = layoutManager
         dataBinding.list.adapter = adapter
     }
+
     private fun queryCourseNotice() {
         ApiFactory.create(AccountApi::class.java).notice()
             .enqueue(object : HiCallBack<CourseNotice> {
@@ -45,6 +50,7 @@ class NoticeListActivity : HiBaseActivity<ActivityNoticeListBinding>() {
                 }
             })
     }
+
     private fun bindData(data: CourseNotice) {
         courseNotice = data
         data.list?.map {

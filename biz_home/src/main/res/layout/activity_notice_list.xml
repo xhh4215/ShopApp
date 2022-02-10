@@ -14,10 +14,12 @@
         android:orientation="vertical"
         tools:ignore="MissingDefaultResource">
 
-        <View
+        <com.example.hi.title.HiNavigationBar
+            android:id="@+id/navigation_bar"
+            android:background="@color/color_white"
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/color_d1d2" />
+            android:layout_height="@dimen/dp_48"
+            app:nav_title="通知列表" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
