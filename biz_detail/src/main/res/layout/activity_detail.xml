@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white"
+        tools:context="com.example.biz_detail.DetailActivity">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_layout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:fitsSystemWindows="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <com.example.hi.icfont.IconFontTextView
+                android:id="@+id/action_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="12dp"
+                android:paddingTop="@dimen/dp_5"
+                android:paddingRight="12dp"
+                android:paddingBottom="@dimen/dp_5"
+                android:text="@string/if_back"
+                android:textSize="18sp" />
+
+
+            <com.example.hi.icfont.IconFontTextView
+                android:id="@+id/action_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:paddingLeft="12dp"
+                android:paddingTop="@dimen/dp_5"
+                android:paddingRight="12dp"
+                android:paddingBottom="@dimen/dp_5"
+                android:text="@string/if_share"
+                android:textSize="18sp" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_layout"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:background="@color/color_white"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+
+            <com.example.hi.icfont.IconFontTextView
+                android:id="@+id/action_favorite"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="&#xe60e;\n收藏"
+                android:textColor="@color/color_999"
+                android:textSize="@dimen/sp_14" />
+
+
+            <TextView
+                android:id="@+id/action_order"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/color_de3"
+                android:gravity="center"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_14"
+                tools:text="￥29元\n现在购买" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

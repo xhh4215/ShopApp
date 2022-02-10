@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common.R
 import com.example.common.databinding.FragmentListBinding
-import com.example.common.ui.view.EmptyView
+import com.example.hi.empty.EmptyView
 import com.example.common.ui.view.HiRecyclerView
 import com.example.hi.item.HiAdapter
 import com.example.hi.item.HiDataItem

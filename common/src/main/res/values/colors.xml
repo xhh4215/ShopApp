@@ -37,8 +37,8 @@
     <color name="color_9fa">#9FA3A4</color>
     <color name="color_929">#929697</color>
 
-    <color name="tabBottomDefaultColor">#ff656667</color>
-    <color name="tabBottomTintColor">#ffd44949</color>
+    <color name="tab_bottom_default_color">#E91E63</color>
+    <color name="tab_bottom_tint_color">#BEC0C1</color>
     <color name="color_gray1">#f1f2f3</color>
 
 </resources>

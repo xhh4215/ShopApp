@@ -4,6 +4,9 @@ plugins {
     id 'kotlin-kapt'
 
 }
+apply from: '../dependency.gradle'
+def ext = rootProject.ext
+def dependency = rootProject.ext.dependencies
 kapt {
     arguments {
         arg("AROUTER_MODULE_NAME", project.getName())
@@ -12,11 +15,10 @@ kapt {
     }
 }
 android {
-    compileSdk 31
-
+    compileSdkVersion ext.compileSdkVersion
     defaultConfig {
-        minSdk 21
-        targetSdk 31
+        minSdkVersion ext.minSdkVersion
+        targetSdkVersion ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -43,22 +45,25 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    api "androidx.fragment:fragment-ktx:1.4.1"
-    kapt 'androidx.lifecycle:lifecycle-compiler:2.2.0'
-    api 'com.google.code.gson:gson:2.8.9'
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    kapt 'com.github.bumptech.glide:compiler:4.12.0'
-    implementation project(path: ':hi-library')
-    implementation project(path: ':hi-ui')
-    implementation 'com.alibaba:arouter-api:1.5.2'
-    kapt 'com.alibaba:arouter-compiler:1.5.2'
-    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'androidx.core:core-ktx:1.7.0'
+    api project(path: ':hi-library')
+    api project(path: ':hi-ui')
+    api project(path: ':service_login')
+    api dependency.constraintlayout
+    api dependency.appcompat
+    api dependency.material
+    api dependency.recyclerview
+    api dependency.fragment_ktx
+    //glide图片
+    implementation dependency.glide
+    kapt dependency.glide_compiler
+    //http
+    implementation dependency.retrofit
+    api dependency.gson
+    //arouter
+    implementation dependency.arouter_api
+    kapt dependency.arouter_compiler
+
+    implementation dependency.lifecycle_extensions
+    kapt dependency.lifecycle_compiler
 }

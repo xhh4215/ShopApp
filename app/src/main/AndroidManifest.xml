@@ -14,25 +14,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopApp">
         <activity
-            android:name=".notice.NoticeListActivity"
+            android:name="com.example.biz_home.notice.NoticeListActivity"
             android:exported="false" />
         <activity
-            android:name=".biz.detail.DetailActivity"
+            android:name="com.example.biz_detail.DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".biz.goods.GoodsListActivity"
+            android:name="com.example.biz_home.goodlist.GoodsListActivity"
             android:exported="false" />
         <activity
-            android:name=".route.DegradeGlobalActivity"
+            android:name=".degarde.DegradeGlobalActivity"
             android:exported="false" />
         <activity
-            android:name=".biz.account.RegistrationActivity"
+            android:name="com.example.biz_login.RegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".biz.account.LoginActivity"
+            android:name="com.example.biz_login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".biz.account.MainActivity"
+            android:name="com.example.biz_home.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

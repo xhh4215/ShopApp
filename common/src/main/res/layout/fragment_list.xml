@@ -22,7 +22,7 @@
                 android:layout_height="match_parent" />
         </com.example.hi.refresh.HiRefreshLayout>
 
-        <com.example.common.ui.view.EmptyView
+        <com.example.hi.empty.EmptyView
             android:id="@+id/empty_view"
             android:visibility="gone"
             tools:visibility="visible"
