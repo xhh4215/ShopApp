@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common.ui.view.loadUrl
 import com.example.hi.item.HiDataItem
+import com.example.hi.item.HiViewHolder
 import com.example.library.utils.HiDisplayUtil
 import com.example.shopapp.R
+import com.example.shopapp.databinding.LayoutHomeOpGridItemBinding
 import com.example.shopapp.model.Subcategory
 import com.example.shopapp.route.HiRoute
 
@@ -23,7 +25,7 @@ class GridItem(val list: List<Subcategory>) :
     override fun onBindData(holder: RecyclerView.ViewHolder, position: Int) {
         val context = holder.itemView.context
         val gridView = holder.itemView as RecyclerView
-        gridView.adapter = GridAdapter(context,list)
+        gridView.adapter = GridAdapter(context, list)
     }
 
     override fun getItemView(parent: ViewGroup): View? {
@@ -41,21 +43,17 @@ class GridItem(val list: List<Subcategory>) :
     }
 
     inner class GridAdapter(val context: Context, val list: List<Subcategory>) :
-        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        RecyclerView.Adapter<GridItemViewHolder>() {
         private var inflater: LayoutInflater = LayoutInflater.from(context)
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            val view = inflater.inflate(R.layout.layout_home_op_grid_item, parent, false)
-            return object : RecyclerView.ViewHolder(view) {
-            }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GridItemViewHolder {
+            val dataBinding = LayoutHomeOpGridItemBinding.inflate(inflater, parent, false)
+            return GridItemViewHolder(dataBinding.root, dataBinding)
         }
 
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: GridItemViewHolder, position: Int) {
             val subcategory = list[position]
-            holder.itemView.findViewById<ImageView>(R.id.item_image)
-                .loadUrl(subcategory.subcategoryIcon)
-            holder.itemView.findViewById<TextView>(R.id.item_title).text =
-                subcategory.subcategoryName
+            holder.dataBinding.subCategory = subcategory
             holder.itemView.setOnClickListener {
                 //是应该跳转到类目的商品列表页的
                 val bundle = Bundle()
@@ -73,5 +71,8 @@ class GridItem(val list: List<Subcategory>) :
         }
 
     }
+
+    inner class GridItemViewHolder(view: View, val dataBinding: LayoutHomeOpGridItemBinding) :
+        HiViewHolder(view)
 
 }

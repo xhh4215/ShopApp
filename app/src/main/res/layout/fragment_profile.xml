@@ -5,6 +5,19 @@
 
     <data>
 
+        <variable
+            name="courseNotice"
+            type="com.example.shopapp.model.CourseNotice" />
+
+        <variable
+            name="userProfile"
+            type="com.example.shopapp.model.UserProfile" />
+
+        <import type="android.view.View" />
+
+        <import type="com.example.shopapp.fragment.profile.ProfileUtil" />
+
+        <import type="android.text.TextUtils" />
     </data>
 
     <LinearLayout
@@ -26,6 +39,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="@drawable/shadow_circle"
+                app:circleUrl="@{userProfile.userIcon}"
                 tools:src="@drawable/ic_avatar_default" />
 
 
@@ -39,6 +53,7 @@
                 android:ellipsize="end"
                 android:maxLength="10"
                 android:singleLine="true"
+                android:text="@{userProfile.login?userProfile.userName:@string/profile_not_login}"
                 android:textColor="@color/color_000"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -53,6 +68,7 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_toRightOf="@+id/user_avatar"
+                android:text="@{userProfile.login?@string/profile_login_desc_welcome_back:@string/profile_login_desc}"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/sp_12"
                 tools:text="@string/profile_login_desc_welcome_back" />
@@ -73,6 +89,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+
+                android:text="@{ProfileUtil.INSTANCE.spannableTabItem(userProfile.favoriteCount,@string/profile_tab_item_collection)}"
                 android:textColor="@color/color_333"
                 android:textSize="@dimen/sp_13"
                 tools:text="40\n收藏" />
@@ -84,6 +102,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+
+                android:text="@{ProfileUtil.INSTANCE.spannableTabItem(userProfile.browseCount,@string/profile_tab_item_history)}"
                 android:textColor="@color/color_333"
                 android:textSize="@dimen/sp_13"
                 tools:text="40\n历史浏览" />
@@ -95,6 +115,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+
+                android:text="@{ProfileUtil.INSTANCE.spannableTabItem(userProfile.learnMinutes,@string/profile_tab_item_learn)}"
                 android:textColor="@color/color_333"
                 android:textSize="@dimen/sp_13"
                 tools:text="40\n学习时长" />
@@ -113,6 +135,7 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_notice"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:gravity="center_vertical"
@@ -138,9 +161,10 @@
                 android:layout_height="@dimen/dp_16"
                 android:background="@drawable/bg_red_circle"
                 android:gravity="center"
+                android:text="@{String.valueOf(courseNotice.total)}"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/sp_10"
-                android:visibility="gone"
+                android:visibility="@{courseNotice.total>0?View.VISIBLE:View.GONE}"
                 tools:text="10"
                 tools:visibility="visible" />
         </LinearLayout>

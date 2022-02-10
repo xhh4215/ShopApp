@@ -6,8 +6,9 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.media.Image
+import android.text.TextUtils
 import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintSet
+ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -20,6 +21,7 @@ import com.example.library.utils.HiViewUtil
 fun ImageView.loadUrl(url: String) {
     Glide.with(this).load(url).into(this)
 }
+
 fun ImageView.loadUrl(url: String, callback: (Drawable) -> Unit) {
     //you cannot load url from destory activity
     if (HiViewUtil.isActivityDestroyed(context)) return
@@ -29,13 +31,20 @@ fun ImageView.loadUrl(url: String, callback: (Drawable) -> Unit) {
         }
     })
 }
-
-fun ImageView.loadCircleUrl(url: String) {
-    Glide.with(this).load(url).transform(CenterCrop()).into(this)
+@BindingAdapter(value = ["circleUrl"])
+fun ImageView.loadCircleUrl(circleUrl: String?) {
+    if (HiViewUtil.isActivityDestroyed(context) || TextUtils.isEmpty(circleUrl)) return
+    Glide.with(this).load(circleUrl)
+        .transform(CircleCrop()).into(this)
 }
 
+@BindingAdapter(value = ["url", "corner"], requireAll = false)
 fun ImageView.loadCorner(url: String, corner: Int) {
-    Glide.with(this).load(url).transform(CenterCrop(), RoundedCorners(corner)).into(this)
+    val transform = Glide.with(this).load(url).transform(CenterCrop())
+    if (corner > 0) {
+        RoundedCorners(corner)
+    }
+    transform.into(this)
 }
 
 fun ImageView.loadCircleBorder(

@@ -26,6 +26,7 @@ import com.example.shopapp.fragment.home.GoodItem
 import com.example.shopapp.model.DetailModel
 import com.example.shopapp.model.GoodsModel
 import com.example.shopapp.model.Shop
+
 /**
  * 店铺模块= 基础信息+ 关联商品
  */
@@ -106,7 +107,8 @@ class ShopItem(val detailModel: DetailModel) : HiDataItem<DetailModel, HiViewHol
         override fun getItemLayoutRes(): Int {
             return R.layout.layout_detail_item_shop_goods_item
         }
-         override fun onViewAttachedToWindow(holder: HiViewHolder) {
+
+        override fun onViewAttachedToWindow(holder: GoodItemHolder) {
             super.onViewAttachedToWindow(holder)
             val viewParent: ViewGroup = holder.itemView.parent as ViewGroup
             val availableWidth =

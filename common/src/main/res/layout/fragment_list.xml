@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.example.hi.refresh.HiRefreshLayout
-        android:id="@+id/refresh_layout"
+    <data>
+
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.common.ui.view.HiRecyclerView
-            android:id="@+id/recycler_view"
-            android:overScrollMode="never"
+        <com.example.hi.refresh.HiRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.common.ui.view.HiRecyclerView
+                android:id="@+id/recycler_view"
+                android:overScrollMode="never"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.example.hi.refresh.HiRefreshLayout>
+
+        <com.example.common.ui.view.EmptyView
+            android:id="@+id/empty_view"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.example.hi.refresh.HiRefreshLayout>
 
-    <com.example.common.ui.view.EmptyView
-        android:id="@+id/empty_view"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <include layout="@layout/layout_content_loading_view" />
 
-    <include layout="@layout/layout_content_loading_view" />
-
-</FrameLayout>
+    </FrameLayout>
+</layout>

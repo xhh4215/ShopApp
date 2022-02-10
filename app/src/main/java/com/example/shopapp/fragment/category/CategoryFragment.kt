@@ -18,13 +18,14 @@ import com.example.hi.slider.HiSliderView
 import com.example.library.restful.HiCallBack
 import com.example.library.restful.HiResponse
 import com.example.shopapp.R
+import com.example.shopapp.databinding.FragmentCategoryBinding
 import com.example.shopapp.http.ApiFactory
 import com.example.shopapp.http.api.CategoryApi
 import com.example.shopapp.model.Subcategory
 import com.example.shopapp.model.TabCategory
 import com.example.shopapp.route.HiRoute
 
-class CategoryFragment : HiBaseFragment() {
+class CategoryFragment : HiBaseFragment<FragmentCategoryBinding>() {
     private var emptyView: EmptyView? = null
     private var rootContainer: RelativeLayout? = null
     private var loadingView: View? = null

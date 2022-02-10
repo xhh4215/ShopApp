@@ -8,11 +8,16 @@ import android.view.ViewGroup;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 
-public abstract class HiBaseFragment extends Fragment {
+public abstract class HiBaseFragment<T extends ViewDataBinding> extends Fragment {
     //fragment的根布局
     protected View layoutView;
+
+
+    public T dataBinding;
 
     @LayoutRes
     public abstract int getLayoutId();
@@ -20,7 +25,8 @@ public abstract class HiBaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layoutView = inflater.inflate(getLayoutId(), container, false);
+        dataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
+        layoutView = dataBinding.getRoot();
         return layoutView;
     }
 

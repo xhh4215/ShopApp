@@ -25,7 +25,8 @@ object HiRoute {
         ACCOUNT_REGISTRATION("注册", "/account/registration"),
         ACCOUNT_LOGIN("登陆", "/account/login"),
         DEGRADE_GLOBAL("全局降级页", "/degrade/global/activity"),
-        DETAIL_MAIN("详情页", "/detail/main")
+        DETAIL_MAIN("详情页", "/detail/main"),
+        NOTICE_LIST("课程列表", "/notice/list")
 
 
     }

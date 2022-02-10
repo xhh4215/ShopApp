@@ -1,6 +1,7 @@
 package com.example.hi.item
 
 import android.content.Context
+import android.util.Log
 import android.util.SparseArray
 import android.util.SparseIntArray
 import android.view.LayoutInflater
@@ -22,10 +23,7 @@ class HiAdapter(context: Context) : Adapter<ViewHolder>() {
     private var mContext: Context = context
     private var mInflater = LayoutInflater.from(context)
     private var dataSets = java.util.ArrayList<HiDataItem<*, out ViewHolder>>()
-
-    //private var typeArrays = SparseArray<HiDataItem<*, out ViewHolder>>()
-    private val typePositions = SparseIntArray();
-
+    private val typePositions = SparseIntArray()
     private var headers = SparseArray<View>()
     private var footers = SparseArray<View>()
     private var BASE_ITEM_TYPE_HEADER = 1000000
@@ -185,8 +183,7 @@ class HiAdapter(context: Context) : Adapter<ViewHolder>() {
         val position = typePositions.get(viewType)
         val dataItem = dataSets[position]
         val vh = dataItem.onCreateViewHolder(parent)
-        if (vh != null) return vh
-
+         if (vh != null) return vh
         var view: View? = dataItem.getItemView(parent)
         if (view == null) {
             val layoutRes = dataItem.getItemLayoutRes()

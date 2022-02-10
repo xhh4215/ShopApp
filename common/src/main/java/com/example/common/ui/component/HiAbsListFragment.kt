@@ -7,6 +7,7 @@ import androidx.core.widget.ContentLoadingProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common.R
+import com.example.common.databinding.FragmentListBinding
 import com.example.common.ui.view.EmptyView
 import com.example.common.ui.view.HiRecyclerView
 import com.example.hi.item.HiAdapter
@@ -16,8 +17,8 @@ import com.example.hi.refresh.HiRefreshLayout
 import com.example.hi.refresh.HiTextOverView
 import com.example.hi.refresh.IHiRefresh
 
-open class HiAbsListFragment : HiBaseFragment(), IHiRefresh.HiRefreshListener {
-     var pageIndex = 1
+open class HiAbsListFragment : HiBaseFragment<FragmentListBinding>(), IHiRefresh.HiRefreshListener {
+    var pageIndex = 1
     private lateinit var hiAdapter: HiAdapter
     private lateinit var refreshHeaderView: HiTextOverView
     private lateinit var layoutManager: RecyclerView.LayoutManager

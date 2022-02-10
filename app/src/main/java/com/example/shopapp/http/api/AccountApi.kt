@@ -29,5 +29,5 @@ interface AccountApi {
     fun profile(): HiCall<UserProfile>
 
     @GET("notice")
-    fun notice(): HiCall<CourseNotice>
+     fun notice():HiCall<CourseNotice>
 }

@@ -16,9 +16,9 @@ import com.example.hi.bottom.HiTabBottomLayout;
 import com.example.shopapp.R;
  import com.example.shopapp.fragment.category.CategoryFragment;
 import com.example.shopapp.fragment.FavoriteFragment;
-import com.example.shopapp.fragment.HomePageFragment;
-import com.example.shopapp.fragment.ProfileFragment;
-import com.example.shopapp.fragment.RecommendFragment;
+import com.example.shopapp.fragment.home.HomePageFragment;
+ import com.example.shopapp.fragment.RecommendFragment;
+import com.example.shopapp.fragment.profile.ProfileFragment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.text.TextUtils
 import android.util.Log
-import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.common.ui.component.HiBaseActivity
 import com.example.library.restful.HiCallBack

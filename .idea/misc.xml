@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-hdpi/ic_launcher_background.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable-v24/shape_notice.xml" value="0.14722222222222223" />
         <entry key="app/src/main/res/drawable/bg_red_circle.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/shape_goods_label.xml" value="0.26296296296296295" />
         <entry key="app/src/main/res/drawable/shape_home_search.xml" value="0.321025641025641" />
@@ -13,6 +14,7 @@
         <entry key="app/src/main/res/layout/activity_goods_list.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_notice_list.xml" value="0.26992753623188404" />
         <entry key="app/src/main/res/layout/activity_regist.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_test_refresh.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/banner_item_layout.xml" value="0.3098958333333333" />
@@ -36,6 +38,7 @@
         <entry key="app/src/main/res/layout/layout_home_good_list_item1.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/layout_home_good_list_item2.xml" value="0.28804347826086957" />
         <entry key="app/src/main/res/layout/layout_home_op_grid_item.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/layout_notice_item.xml" value="0.26992753623188404" />
         <entry key="app/src/main/res/xml/network_security_config.xml" value="0.3098958333333333" />
         <entry key="common/src/main/res/layout/fragment_list.xml" value="0.3098958333333333" />
         <entry key="common/src/main/res/layout/layout_content_loading_view.xml" value="0.3098958333333333" />

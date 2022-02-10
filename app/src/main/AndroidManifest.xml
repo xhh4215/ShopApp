@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopApp">
         <activity
+            android:name=".notice.NoticeListActivity"
+            android:exported="false" />
+        <activity
             android:name=".biz.detail.DetailActivity"
             android:exported="false" />
         <activity

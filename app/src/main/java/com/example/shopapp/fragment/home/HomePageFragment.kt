@@ -1,4 +1,4 @@
-package com.example.shopapp.fragment
+package com.example.shopapp.fragment.home
 
 import android.os.Bundle
 import android.util.Log
@@ -8,9 +8,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.example.common.ui.component.HiBaseFragment
@@ -20,15 +22,17 @@ import com.example.hi.top.HiTabTopInfo
 import com.example.library.restful.HiCallBack
 import com.example.library.restful.HiResponse
 import com.example.shopapp.R
-import com.example.shopapp.fragment.home.HomeTabFragment
+import com.example.shopapp.databinding.FragmentHomeBinding
 import com.example.shopapp.http.ApiFactory
 import com.example.shopapp.http.api.HomeApi
 import com.example.shopapp.model.TabCategory
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomePageFragment : HiBaseFragment() {
+class HomePageFragment : HiBaseFragment<FragmentHomeBinding>() {
+    private val homeViewModel: HomeViewModel by viewModels()
     private var topTabSelectIndex: Int = 0
     private val selectTabIndex: Int = 0
+    val topTabs = mutableListOf<HiTabTopInfo<Int>>()
     override fun getLayoutId(): Int {
         return R.layout.fragment_home
     }
@@ -40,31 +44,14 @@ class HomePageFragment : HiBaseFragment() {
     }
 
     private fun queryTabList() {
-        ApiFactory.create(HomeApi::class.java).queryTabList()
-            .enqueue(object : HiCallBack<List<TabCategory>> {
-                override fun onSuccess(response: HiResponse<List<TabCategory>>) {
-                    val data = response.data
-                    if (response.successful() && data != null) {
-                        updateUI(data!!)
-                    }
-                }
-
-                override fun onFailed(throwable: Throwable) {
-                }
-
-            })
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        lifecycle.addObserver(LifecycleEventObserver { source: LifecycleOwner?, event: Lifecycle.Event ->
-            Log.e(
-                "event",
-                event.name
-            )
+        homeViewModel.queryCategoryTabs().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                updateUI(it)
+            }
         })
+
     }
+
 
     private val onTabSelectedListener =
         IHiTabLayout.OnTabSelectedListener<HiTabTopInfo<*>> { index, proInfo, nextInfo ->
@@ -76,9 +63,10 @@ class HomePageFragment : HiBaseFragment() {
 
 
     private fun updateUI(data: List<TabCategory>) {
-        //小心处理
-        if (!isAlive) return
-        val topTabs = mutableListOf<HiTabTopInfo<Int>>()
+        //topTabs需要提到全局，
+        //因为addOnPageChangeListener  在第一次设置的时候，他就绑定了一次的局部变量topTabs
+        //而再次刷新时，并没有 重新设置PageChangeListener，但是第一次的topTabs已经被释放了。
+        topTabs.clear()
         data.forEachIndexed { _, tabCategory ->
             val defaultColor = ContextCompat.getColor(context!!, R.color.color_333)
             val selectColor = ContextCompat.getColor(context!!, R.color.color_dd2)

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common.ui.component.HiAbsListFragment
@@ -16,7 +18,8 @@ import com.example.shopapp.http.api.HomeApi
 import com.example.shopapp.model.HomeModel
 
 open class HomeTabFragment : HiAbsListFragment() {
-    val DEFAULT_HOT_TAB_CATEGORY_ID = "1"
+    private val homeModel: HomeViewModel by viewModels()
+    private val DEFAULT_HOT_TAB_CATEGORY_ID = "1"
     private var categoryId: String? = null
 
     companion object {
@@ -32,10 +35,10 @@ open class HomeTabFragment : HiAbsListFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         categoryId = arguments?.getString("categoryId", DEFAULT_HOT_TAB_CATEGORY_ID)
         super.onViewCreated(view, savedInstanceState)
-        queryCategoryList(CacheStrategy.CACHE_FIRST)
         enableLoadMore {
             queryCategoryList(CacheStrategy.NET_ONLY)
         }
+        queryCategoryList(CacheStrategy.CACHE_FIRST)
     }
 
     override fun createLayoutManager(): RecyclerView.LayoutManager {
@@ -44,23 +47,15 @@ open class HomeTabFragment : HiAbsListFragment() {
     }
 
     private fun queryCategoryList(cacheStrategy: Int) {
-        ApiFactory.create(HomeApi::class.java)
-            .queryTabCategoryList(cacheStrategy, categoryId!!, pageIndex, 10)
-            .enqueue(object : HiCallBack<HomeModel> {
-                override fun onSuccess(response: HiResponse<HomeModel>) {
-                    if (response.successful() && response.data != null) {
-                        response.msg?.let { Log.e("tag", it) }
-                        updateUI(response.data!!)
-
+        homeModel.queryTabCategoryList(categoryId, pageIndex, cacheStrategy)
+            .observe(viewLifecycleOwner,
+                Observer {
+                    if (it != null) {
+                        updateUI(it)
                     } else {
                         finishRefresh(null)
                     }
-                }
-
-                override fun onFailed(throwable: Throwable) {
-                    finishRefresh(null)
-                }
-            })
+                })
     }
 
     override fun onRefresh() {
@@ -70,8 +65,7 @@ open class HomeTabFragment : HiAbsListFragment() {
 
 
     private fun updateUI(data: HomeModel) {
-        if (!isAlive) return
-        val dataItems = mutableListOf<HiDataItem<*, *>>()
+         val dataItems = mutableListOf<HiDataItem<*, *>>()
         data.bannerList?.let {
             dataItems.add(BannerItem(data.bannerList))
         }

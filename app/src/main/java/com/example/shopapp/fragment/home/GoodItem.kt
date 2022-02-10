@@ -3,65 +3,60 @@ package com.example.shopapp.fragment.home
 import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.Gravity
+ import android.view.Gravity
 import android.view.View
-import android.widget.ImageView
+import android.view.LayoutInflater.from
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.example.common.ui.view.loadUrl
 import com.example.hi.item.HiDataItem
 import com.example.hi.item.HiViewHolder
 import com.example.library.utils.HiDisplayUtil
+import com.example.shopapp.BR
 import com.example.shopapp.R
+import com.example.shopapp.databinding.LayoutHomeGoodListItem1Binding
+import com.example.shopapp.databinding.LayoutHomeGoodListItem2Binding
 import com.example.shopapp.model.GoodsModel
-import com.example.shopapp.model.selectPrice
 import com.example.shopapp.route.HiRoute
 
 open class GoodItem(val goodsModel: GoodsModel, val hotTab: Boolean) :
-    HiDataItem<GoodsModel, HiViewHolder>(goodsModel) {
-    val MAX_TAG_SIZE = 3
-    override fun onBindData(holder: HiViewHolder, position: Int) {
+    HiDataItem<GoodsModel, GoodItem.GoodItemHolder>(goodsModel) {
+    private val MAX_TAG_SIZE = 3
+    override fun onBindData(holder: GoodItemHolder, position: Int) {
         val context = holder.itemView.context
-        holder.itemView.findViewById<ImageView>(R.id.item_image).loadUrl(goodsModel.sliderImage)
-
-        holder.itemView.findViewById<TextView>(R.id.item_title).text = goodsModel.goodsName
-
-        holder.itemView.findViewById<TextView>(R.id.item_price).text =
-            selectPrice(goodsModel.groupPrice, goodsModel.marketPrice)
-
-        holder.itemView.findViewById<TextView>(R.id.item_count).text = goodsModel.completedNumText
-
+        holder.binding.setVariable(BR.goodModel, goodsModel)
         val labelContainer = holder.itemView.findViewById<LinearLayout>(R.id.item_label_container)
-       if (labelContainer!=null){
+        if (labelContainer != null) {
             if (!TextUtils.isEmpty(goodsModel.tags)) {
-            labelContainer.visibility = View.VISIBLE
-            val splits = goodsModel.tags.split(" ")
-            for (index in splits.indices) {
-                val childCount = labelContainer.childCount
-                if (index > MAX_TAG_SIZE - 1) {
-                    for (index in childCount - 1 downTo MAX_TAG_SIZE - 1) {
-                        labelContainer.removeViewAt(index)
+                labelContainer.visibility = View.VISIBLE
+                val splits = goodsModel.tags.split(" ")
+                for (index in splits.indices) {
+                    val childCount = labelContainer.childCount
+                    if (index > MAX_TAG_SIZE - 1) {
+                        for (index in childCount - 1 downTo MAX_TAG_SIZE - 1) {
+                            labelContainer.removeViewAt(index)
+                        }
+                        break
                     }
-                    break
-                }
-                val labelView: TextView = if (index > labelContainer.childCount - 1) {
-                    val view = createLabelView(context, index != 0)
-                    labelContainer.addView(view)
-                    view
-                } else {
-                    labelContainer.getChildAt(index) as TextView
+                    val labelView: TextView = if (index > labelContainer.childCount - 1) {
+                        val view = createLabelView(context, index != 0)
+                        labelContainer.addView(view)
+                        view
+                    } else {
+                        labelContainer.getChildAt(index) as TextView
+                    }
+
+                    labelView.text = splits[index]
                 }
 
-                labelView.text = splits[index]
+            } else {
+                labelContainer.visibility = View.GONE
             }
 
-        } else {
-            labelContainer.visibility = View.GONE
         }
-
-       }
         if (!hotTab) {
             val margin = HiDisplayUtil.dp2px(2f)
             val layoutParams = holder.itemView.layoutParams as RecyclerView.LayoutParams
@@ -100,11 +95,23 @@ open class GoodItem(val goodsModel: GoodsModel, val hotTab: Boolean) :
         return labelTextView
     }
 
-    override fun getItemLayoutRes(): Int {
-        return if (hotTab) R.layout.layout_home_good_list_item1 else R.layout.layout_home_good_list_item2
+
+    override fun onCreateViewHolder(parent: ViewGroup): GoodItemHolder? {
+        val inflater = from(parent.context)
+        return if (hotTab) {
+            val binding = LayoutHomeGoodListItem1Binding.inflate(inflater, parent, false)
+            GoodItemHolder(binding)
+        } else {
+            val binding = LayoutHomeGoodListItem2Binding.inflate(inflater, parent, false)
+            GoodItemHolder(binding)
+        }
     }
+
 
     override fun getSpanSize(): Int {
         return if (hotTab) super.getSpanSize() else 1
     }
+
+    class GoodItemHolder(val binding: ViewDataBinding) : HiViewHolder(binding.root)
+
 }

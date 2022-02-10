@@ -1,11 +1,9 @@
 package com.example.library.restful
 
 import android.util.Log
-import android.widget.Toast
 import com.example.library.cache.HiStorage
 import com.example.library.executor.HiExecutor
 import com.example.library.restful.annotation.CacheStrategy
-import com.example.library.utils.AppGlobals
 import com.example.library.utils.MainHandler
 
 /***
