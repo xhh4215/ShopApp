@@ -18,6 +18,7 @@ import com.example.hi.bottom.HiTabBottomLayout
 import com.example.hi.common.IHiTabLayout
 import com.example.hi.top.HiTabTopInfo
 import com.example.biz_home.model.TabCategory
+import com.example.common.route.HiRoute
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomePageFragment : HiBaseFragment<FragmentHomeBinding>() {
@@ -32,6 +33,9 @@ class HomePageFragment : HiBaseFragment<FragmentHomeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         HiTabBottomLayout.clipBottomPadding(layoutView.findViewById(R.id.view_pager))
+        dataBinding.searchContainer.setOnClickListener {
+            HiRoute.startActivity(requireContext(), destination = HiRoute.Destination.SEARCH_PAGE)
+        }
         queryTabList()
     }
 

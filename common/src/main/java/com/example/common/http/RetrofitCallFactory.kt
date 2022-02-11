@@ -98,7 +98,7 @@ class RetrofitCallFactory(baseUrl: String) : HiCall.Factory {
                         builder.build()
                     } else {
                         RequestBody.create(
-                            MediaType.parse("application/json;utf-8"),
+                            MediaType.parse("application/json;charset=utf-8"),
                             jsonObject.toString()
                         )
                     }

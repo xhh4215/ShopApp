@@ -11,7 +11,7 @@ import com.example.common.R
 import com.example.hi.banner.core.HIBanner
 import com.example.hi.item.HiAdapter
 
-class HiRecyclerView @JvmOverloads constructor(
+open class HiRecyclerView @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,
     defStyleAttr: Int = 0
