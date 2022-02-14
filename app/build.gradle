@@ -3,8 +3,10 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.alibaba.arouter'
- }
+}
 apply from: '../dependency.gradle'
+apply plugin: 'com.tencent.vasdolly'
+
 def ext = rootProject.ext
 def dependency = rootProject.ext.dependencies
 kapt {
@@ -41,6 +43,12 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -56,7 +64,32 @@ android {
         jvmTarget = '1.8'
     }
 }
-
+channel {
+    //指定渠道文件
+    channelFile = file("/Users/xh/project/android_project/ShopApp/channel.txt")
+    //多渠道包的输出目录，默认为new File(project.buildDir,"channel")
+    outputDir = new File(project.buildDir, "build_apk_path")
+    //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}-${buildTime}
+    apkNameFormat = '${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}'
+    //快速模式：生成渠道包时不进行校验（速度可以提升10倍以上，默认为false）
+    fastMode = false
+    //buildTime的时间格式，默认格式：yyyyMMdd-HHmmss
+    buildTimeDateFormat = 'yyyyMMdd-HH:mm:ss'
+    //低内存模式（仅针对V2签名，默认为false）：只把签名块、中央目录和EOCD读取到内存，不把最大头的内容块读取到内存，在手机上合成APK时，可以使用该模式
+    lowMemory = false
+}
+rebuildChannel {
+    //指定渠道文件
+    channelFile = file("/Users/leon/Downloads/testReChannel.txt")
+    // 已有APK文件地址（必填）,如new File(project.rootDir, "/baseApk/app_base.apk"),文件名中的base将被替换为渠道名
+    baseApk = new File(project.buildDir, "build_apk_path/app_base.apk")
+    //默认为new File(project.buildDir, "rebuildChannel")
+    outputDir =  new File(project.buildDir, "rebuild_apk_path")
+    //快速模式：生成渠道包时不进行校验（速度可以提升10倍以上，默认为false）
+    fastMode = false
+    //低内存模式（仅针对V2签名，默认为false）：只把签名块、中央目录和EOCD读取到内存，不把最大头的内容块读取到内存，在手机上合成APK时，可以使用该模式
+    lowMemory = false
+}
 dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     api dependency.appcompat
@@ -72,4 +105,6 @@ dependencies {
     //arouter路由
     implementation dependency.arouter_api
     kapt dependency.arouter_compiler
+    api dependency.vasdolly_version
+
 }

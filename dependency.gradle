@@ -39,6 +39,8 @@ ext {
             //hilt--begin
             hilt_android         : "com.google.dagger:hilt-android:2.36",
             hilt_android_compiler: "com.google.dagger:hilt-android-compiler:2.36",
-             //hilt--end
+            //hilt--end
+
+            vasdolly_version     : "com.tencent.vasdolly:helper:3.0.0"
     ]
 }
