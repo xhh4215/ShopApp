@@ -3,7 +3,7 @@ package com.example.biz_search.view
 import android.content.Context
 import android.util.AttributeSet
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.common.ui.view.HiRecyclerView
+import com.example.hi.input.HiRecyclerView
 import com.example.hi.item.HiAdapter
 import com.example.pub_mod.model.GoodsModel
 import com.example.pub_mod.model.items.GoodItem

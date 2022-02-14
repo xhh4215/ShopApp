@@ -7,7 +7,7 @@ import android.text.style.AbsoluteSizeSpan
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.biz_detail.R
-import com.example.common.ui.view.loadUrl
+import com.example.common.ext.loadUrl
 import com.example.hi.banner.core.HIBanner
 import com.example.hi.banner.core.HiBannerMo
 import com.example.hi.banner.indicator.HiNumIndicator

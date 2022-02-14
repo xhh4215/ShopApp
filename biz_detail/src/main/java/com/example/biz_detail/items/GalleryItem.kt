@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.common.ui.view.loadUrl
+import com.example.common.ext.loadUrl
 import com.example.hi.item.HiDataItem
 import com.example.hi.item.HiViewHolder
 import com.example.pub_mod.model.SliderImage

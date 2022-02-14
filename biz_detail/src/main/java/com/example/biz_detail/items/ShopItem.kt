@@ -16,14 +16,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biz_detail.R
-import com.example.common.ui.view.loadUrl
-import com.example.hi.item.HiAdapter
+ import com.example.hi.item.HiAdapter
 import com.example.hi.item.HiDataItem
 import com.example.hi.item.HiViewHolder
 import com.example.pub_mod.model.GoodsModel
 import com.example.pub_mod.model.items.GoodItem
 import com.example.biz_detail.model.DetailModel
  import com.example.biz_detail.model.Shop
+import com.example.common.ext.loadUrl
 
 /**
  * 店铺模块= 基础信息+ 关联商品

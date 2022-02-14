@@ -1,4 +1,4 @@
-package com.example.common.ui.view
+package com.example.hi.input
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,8 +7,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.common.R
-import com.example.hi.banner.core.HIBanner
+import com.example.hi.R
 import com.example.hi.item.HiAdapter
 
 open class HiRecyclerView @JvmOverloads constructor(

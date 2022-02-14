@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.facade.template.IInterceptor
 import com.example.library.utils.MainHandler
 import com.example.biz_login.AccountManager
 import com.example.common.route.RouteFlag
+import com.example.service_login.LoginServiceProvider
 import java.lang.RuntimeException
 
 @Interceptor(priority = 9)
@@ -21,8 +22,7 @@ class BizInterceptor : IInterceptor {
 
     override fun process(postcard: Postcard?, callback: InterceptorCallback?) {
         val flag = postcard!!.extra
-        if (flag and (RouteFlag.FLAG_LOGIN) != 0) {
-            callback!!.onInterrupt(RuntimeException("need login"))
+        if ((flag and (RouteFlag.FLAG_LOGIN) != 0)) {
             loginInterceptor(postcard, callback)
         } else {
             callback!!.onContinue(postcard)
@@ -31,13 +31,14 @@ class BizInterceptor : IInterceptor {
 
     private fun loginInterceptor(postcard: Postcard?, callback: InterceptorCallback?) {
         MainHandler.post(runnable = Runnable {
-            Toast.makeText(context, "请先登录", Toast.LENGTH_SHORT).show()
             if (AccountManager.isLogin()) {
                 callback?.onContinue(postcard)
             } else {
-                AccountManager.login(context, observer = Observer { success ->
+                Toast.makeText(context, "请先登录", Toast.LENGTH_SHORT).show()
+                val observer = Observer<Boolean> {
                     callback?.onContinue(postcard)
-                })
+                }
+                LoginServiceProvider.login(context, observer)
             }
         })
     }

@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.alibaba.arouter'
-}
+ }
 apply from: '../dependency.gradle'
 def ext = rootProject.ext
 def dependency = rootProject.ext.dependencies
@@ -53,6 +53,7 @@ dependencies {
     implementation project(path: ':hi-library')
     implementation project(path: ':common')
     implementation project(path: ':biz_search')
+    implementation project(path: ':biz_order')
     debugImplementation project(path: ':debug_tools')
     //arouter路由
     implementation dependency.arouter_api

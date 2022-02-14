@@ -56,6 +56,14 @@
         <entry key="biz_home/src/main/res/layout/layout_notice_item.xml" value="0.2125" />
         <entry key="biz_login/src/main/res/layout/activity_login.xml" value="0.291213768115942" />
         <entry key="biz_login/src/main/res/layout/activity_regist.xml" value="0.291213768115942" />
+        <entry key="biz_order/src/main/res/drawable/selector_payway_checked.xml" value="0.3260416666666667" />
+        <entry key="biz_order/src/main/res/drawable/shape_dialog_add_new_address.xml" value="0.3260416666666667" />
+        <entry key="biz_order/src/main/res/drawable/shape_payway_placeholder.xml" value="0.3260416666666667" />
+        <entry key="biz_order/src/main/res/layout/activity_address_list.xml" value="0.3098958333333333" />
+        <entry key="biz_order/src/main/res/layout/activity_address_list2.xml" value="0.23233695652173914" />
+        <entry key="biz_order/src/main/res/layout/activity_address_list_item.xml" value="0.3098958333333333" />
+        <entry key="biz_order/src/main/res/layout/activity_order.xml" value="0.3098958333333333" />
+        <entry key="biz_order/src/main/res/layout/dialog_add_new_address.xml" value="0.3098958333333333" />
         <entry key="biz_search/src/main/res/layout/activity_search.xml" value="0.3098958333333333" />
         <entry key="biz_search/src/main/res/layout/layout_history_search.xml" value="0.3098958333333333" />
         <entry key="biz_search/src/main/res/layout/layout_history_search_chip_item.xml" value="0.3098958333333333" />
@@ -72,6 +80,8 @@
         <entry key="hi-ui/src/main/res/drawable/shape_search_view.xml" value="0.3071794871794872" />
         <entry key="hi-ui/src/main/res/drawable/shape_slider_indicator.xml" value="0.26666666666666666" />
         <entry key="hi-ui/src/main/res/drawable/shape_tab_top_indicator.xml" value="0.3260416666666667" />
+        <entry key="hi-ui/src/main/res/layout/dialog_city_selector.xml" value="0.3098958333333333" />
+        <entry key="hi-ui/src/main/res/layout/dialog_city_selector_list_item.xml" value="0.29936594202898553" />
         <entry key="hi-ui/src/main/res/layout/hi_banner_item_image.xml" value="0.3098958333333333" />
         <entry key="hi-ui/src/main/res/layout/hi_bottom_layout_bg.xml" value="0.3098958333333333" />
         <entry key="hi-ui/src/main/res/layout/hi_refresh_overview.xml" value="0.3098958333333333" />
@@ -80,6 +90,7 @@
         <entry key="hi-ui/src/main/res/layout/hi_tab_bottom.xml" value="0.3098958333333333" />
         <entry key="hi-ui/src/main/res/layout/hi_tab_top.xml" value="0.3098958333333333" />
         <entry key="hi-ui/src/main/res/layout/layout_empty_view.xml" value="0.3098958333333333" />
+        <entry key="hi-ui/src/main/res/layout/layout_footer_loading.xml" value="0.24682971014492755" />
         <entry key="pub_mod/src/main/res/drawable/shape_goods_label.xml" value="0.15925925925925927" />
         <entry key="pub_mod/src/main/res/drawable/shape_home_search.xml" value="0.15925925925925927" />
         <entry key="pub_mod/src/main/res/layout/layout_home_good_list_item1.xml" value="0.291213768115942" />

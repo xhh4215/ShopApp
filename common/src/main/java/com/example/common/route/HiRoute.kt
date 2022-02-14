@@ -27,7 +27,9 @@ object HiRoute {
         DEGRADE_GLOBAL("全局降级页", "/degrade/global/activity"),
         DETAIL_MAIN("详情页", "/detail/main"),
         NOTICE_LIST("课程列表", "/notice/list"),
-        SEARCH_PAGE("搜索页面", "/search/main")
+        SEARCH_PAGE("搜索页面", "/search/main"),
+        ORDER_PAGE("下单页面", "/order/main"),
+        ADDRESS_PAGE("地址列表页面", "/address/list"),
 
 
     }

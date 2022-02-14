@@ -5,10 +5,10 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.biz_detail.R
-import com.example.common.ui.view.InputItemLayout
-import com.example.hi.item.HiDataItem
+ import com.example.hi.item.HiDataItem
 import com.example.hi.item.HiViewHolder
  import com.example.biz_detail.model.DetailModel
+import com.example.hi.input.InputItemLayout
 
 /**
  * 详情页--商品详情描述模块

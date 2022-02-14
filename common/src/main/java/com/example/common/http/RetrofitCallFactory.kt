@@ -124,5 +124,18 @@ class RetrofitCallFactory(baseUrl: String) : HiCall.Factory {
             @HeaderMap headers: MutableMap<String, String>?, @Url url: String,
             @Body body: RequestBody
         ): Call<ResponseBody>
+
+        @PUT
+        fun put(
+            @HeaderMap headers: MutableMap<String, String>?,
+            @Url url: String,
+            @Body body: RequestBody?
+        ): Call<ResponseBody>
+
+        @DELETE//不可以携带requestbody
+        fun delete(
+            @HeaderMap headers: MutableMap<String, String>?,
+            @Url url: String
+        ): Call<ResponseBody>
     }
 }

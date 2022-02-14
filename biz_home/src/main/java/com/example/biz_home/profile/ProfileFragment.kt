@@ -12,9 +12,9 @@ import com.example.common.ui.component.HiBaseFragment
 import com.example.hi.banner.core.HiBannerMo
 import com.example.library.utils.HiDisplayUtil
  import com.example.biz_login.AccountManager
+import com.example.common.ext.loadCorner
 import com.example.common.route.HiRoute
-import com.example.common.ui.view.loadCorner
-import com.example.service_login.Notice
+ import com.example.service_login.Notice
 import com.example.service_login.UserProfile
 
 class ProfileFragment : HiBaseFragment<FragmentProfileBinding>() {

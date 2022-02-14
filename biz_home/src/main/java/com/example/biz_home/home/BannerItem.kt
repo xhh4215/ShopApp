@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.common.ui.view.loadUrl
-import com.example.hi.banner.core.HIBanner
+ import com.example.hi.banner.core.HIBanner
 import com.example.hi.banner.core.HiBannerMo
 import com.example.hi.item.HiDataItem
 import com.example.library.utils.HiDisplayUtil
 import com.example.biz_home.model.HomeBanner
+import com.example.common.ext.loadUrl
 import com.example.common.route.HiRoute
 
 class BannerItem(val list: List<HomeBanner>) :

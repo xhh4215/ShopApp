@@ -98,6 +98,15 @@ class MethodParser(val baseUrl: String, method: Method) {
                     httpMethod = HiRequest.METHOD.POST
                     formPost = annotation.fromPost
                 }
+                is PUT -> {
+                    formPost = annotation.formPost
+                    httpMethod = HiRequest.METHOD.PUT
+                    relativeUrl = annotation.value
+                }
+                is DELETE -> {
+                    httpMethod = HiRequest.METHOD.DELETE
+                    relativeUrl = annotation.value
+                }
                 is Headers -> {
                     val headerArray = annotation.value
                     for (header in headerArray) {

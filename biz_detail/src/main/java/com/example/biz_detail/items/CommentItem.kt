@@ -8,11 +8,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.biz_detail.R
-import com.example.common.ui.view.loadCircleUrl
-import com.example.hi.item.HiDataItem
+ import com.example.hi.item.HiDataItem
 import com.example.hi.item.HiViewHolder
 import com.example.library.utils.HiDisplayUtil
  import com.example.biz_detail.model.DetailModel
+import com.example.common.ext.loadCircleUrl
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.layout_detail_item_comment_item.view.*

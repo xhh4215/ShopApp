@@ -16,14 +16,14 @@ import com.example.biz_home.api.CategoryApi
 import com.example.biz_home.databinding.FragmentCategoryBinding
 import com.example.common.ui.component.HiBaseFragment
 import com.example.hi.empty.EmptyView
-import com.example.common.ui.view.loadUrl
-import com.example.hi.bottom.HiTabBottomLayout
+ import com.example.hi.bottom.HiTabBottomLayout
 import com.example.hi.slider.HiSliderView
 import com.example.library.restful.HiCallBack
 import com.example.library.restful.HiResponse
 import com.example.common.http.ApiFactory
 import com.example.biz_home.model.Subcategory
 import com.example.biz_home.model.TabCategory
+import com.example.common.ext.loadUrl
 import com.example.common.route.HiRoute
 
 class CategoryFragment : HiBaseFragment<FragmentCategoryBinding>() {

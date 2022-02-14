@@ -3,7 +3,7 @@ package com.example.common.http
 import com.example.library.restful.HiConvert
 import com.example.library.restful.HiResponse
 import com.google.gson.Gson
-  import com.google.gson.reflect.TypeToken
+import com.google.gson.reflect.TypeToken
 import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.Exception

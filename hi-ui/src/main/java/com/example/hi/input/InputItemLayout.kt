@@ -1,4 +1,4 @@
-package com.example.common.ui.view
+package com.example.hi.input
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -16,7 +16,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.example.common.R
+import com.example.hi.R
 
 /***
  * @author 栾桂明

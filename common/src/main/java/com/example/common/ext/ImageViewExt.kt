@@ -1,4 +1,4 @@
-package com.example.common.ui.view
+package com.example.common.ext
 
 import android.graphics.Bitmap
 import android.graphics.Canvas

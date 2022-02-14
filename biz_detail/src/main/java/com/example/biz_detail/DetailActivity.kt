@@ -1,9 +1,10 @@
 package com.example.biz_detail
 
- import android.graphics.Color
- import android.text.TextUtils
+import android.graphics.Color
+import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
- import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,8 +21,8 @@ import com.example.common.route.HiRoute
 import com.example.pub_mod.model.GoodsModel
 import com.example.pub_mod.model.items.GoodItem
 import com.example.pub_mod.model.selectPrice
- import com.example.service_login.LoginServiceProvider
- import com.example.biz_detail.model.DetailModel
+import com.example.service_login.LoginServiceProvider
+import com.example.biz_detail.model.DetailModel
 
 @Route(path = "/detail/main")
 class DetailActivity : HiBaseActivity<ActivityDetailBinding>() {
@@ -89,7 +90,7 @@ class DetailActivity : HiBaseActivity<ActivityDetailBinding>() {
     }
 
 
-     private fun bindData(detailModel: DetailModel) {
+    private fun bindData(detailModel: DetailModel) {
         dataBinding.recyclerView.visibility = View.VISIBLE
         emptyView?.visibility = View.GONE
         val hiAdapter = dataBinding.recyclerView.adapter as HiAdapter
@@ -133,7 +134,26 @@ class DetailActivity : HiBaseActivity<ActivityDetailBinding>() {
                 detailModel.marketPrice
             )
         }" + getString(R.string.detail_order_action)
-        //点击  现在先不写
+
+        dataBinding.actionOrder.setOnClickListener {
+            //点击立即购买跳转 下单页
+            val bundle = Bundle()
+            bundle.putString("shopName", detailModel.shop.name)
+            bundle.putString("shopLogo", detailModel.shop.logo)
+            bundle.putString("goodsId", detailModel.goodsId)
+            bundle.putString("goodsImage", detailModel.sliderImage)
+            bundle.putString("goodsName", detailModel.goodsName)
+            bundle.putString(
+                "goodsPrice",
+                selectPrice(detailModel.groupPrice, detailModel.marketPrice)
+            )
+
+            HiRoute.startActivity(
+                this@DetailActivity,
+                bundle = bundle,
+                destination = HiRoute.Destination.ORDER_PAGE
+            )
+        }
     }
 
     private fun updateFavoriteActionFace(favorite: Boolean) {
