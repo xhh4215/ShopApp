@@ -8,6 +8,10 @@ import com.example.common.ui.component.HiBaseActivity
 import com.example.shopapp.R
 import com.example.shopapp.databinding.ActivityDegradeGlobalBinding
 
+/***
+ * @author 栾桂明
+ * @desc 全局的统一错误页面
+ */
 @Route(path = "/degrade/global/activity")
 class DegradeGlobalActivity : HiBaseActivity<ActivityDegradeGlobalBinding>() {
     @Autowired

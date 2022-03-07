@@ -82,32 +82,47 @@ class RetrofitCallFactory(baseUrl: String) : HiCall.Factory {
                     )
                 }
                 HiRequest.METHOD.POST -> {
-                    val parameters = request.parameters
-                    var builder = FormBody.Builder()
-                    var requestBody: RequestBody
-                    var jsonObject = JSONObject()
-
-                    for ((key, value) in parameters!!) {
-                        if (request.formPost) {
-                            builder.add(key, value)
-                        } else {
-                            jsonObject.put(key, value)
-                        }
-                    }
-                    requestBody = if (request.formPost) {
-                        builder.build()
-                    } else {
-                        RequestBody.create(
-                            MediaType.parse("application/json;charset=utf-8"),
-                            jsonObject.toString()
-                        )
-                    }
+                    val requestBody: RequestBody = buildRequestBody(request)
                     return apiService.post(request.headers, request.endPointUrl(), requestBody)
+                }
+                HiRequest.METHOD.PUT->{
+                    val requestBody: RequestBody = buildRequestBody(request)
+                    return apiService.put(request.headers, request.endPointUrl(), requestBody)
+                }
+                HiRequest.METHOD.DELETE->{
+                    return apiService.delete(request.headers,request.endPointUrl())
                 }
                 else -> {
                     throw IllegalStateException("hirestful only support get and post ")
                 }
             }
+        }
+
+
+        private fun buildRequestBody(request: HiRequest): RequestBody {
+            val parameters: MutableMap<String, String>? = request.parameters
+            val builder = FormBody.Builder()
+            val requestBody: RequestBody
+            val jsonObject = JSONObject()
+            if (parameters != null) {
+                for ((key, value) in parameters) {
+                    if (request.formPost) {
+                        builder.add(key, value)
+                    } else {
+                        jsonObject.put(key, value)
+                    }
+                }
+            }
+            if (request.formPost) {
+                requestBody = builder.build()
+            } else {
+                //bugfix: reuqest-header   content-type="application/json; charset=utf-8"
+                requestBody = RequestBody.create(
+                    MediaType.parse("application/json;charset=utf-8"),
+                    jsonObject.toString()
+                )
+            }
+            return requestBody
         }
     }
 

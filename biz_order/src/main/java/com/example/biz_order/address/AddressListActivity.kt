@@ -2,8 +2,6 @@ package com.example.biz_order.address
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -16,17 +14,14 @@ import com.example.biz_order.databinding.ActivityAddressListBinding
 import com.example.biz_order.model.Address
 import com.example.common.route.RouteFlag
 import com.example.common.ui.component.HiBaseActivity
-import com.example.hi.empty.EmptyView
 import com.example.hi.item.HiAdapter
 import com.example.library.utils.HiStatusBar
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 
 //@AndroidEntryPoint
 @Route(path = "/address/list", extras = RouteFlag.FLAG_LOGIN)
 class AddressListActivity : HiBaseActivity<ActivityAddressListBinding>() {
-//    @Inject
+    //    @Inject
 //    lateinit var emptyView: EmptyView
     private val viewModel: AddressViewModel by viewModels()
 

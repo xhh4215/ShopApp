@@ -9,6 +9,7 @@ class HiApplication : HiBaseApplication() {
             ARouter.openLog()
             ARouter.openDebug()
         }
+        //初始化ARouter路由组件
         ARouter.init(this)
     }
 }

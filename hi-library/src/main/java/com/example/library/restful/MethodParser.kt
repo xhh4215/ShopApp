@@ -135,7 +135,7 @@ class MethodParser(val baseUrl: String, method: Method) {
             }
 
         }
-        require((httpMethod == HiRequest.METHOD.GET) || (httpMethod == HiRequest.METHOD.POST)) {
+        require((httpMethod == HiRequest.METHOD.GET) ||(httpMethod == HiRequest.METHOD.DELETE) ||(httpMethod == HiRequest.METHOD.PUT) || (httpMethod == HiRequest.METHOD.POST)) {
             String.format("method %s must has one of GET POST", method.name)
         }
 

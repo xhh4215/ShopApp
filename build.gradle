@@ -1,4 +1,5 @@
- apply from:'dependency.gradle'
+apply from: 'dependency.gradle'
+//构建项目要使用的依赖 仓库 第三方插件等等
 buildscript {
     ext.kotlin_version = '1.5.31'
     repositories {
@@ -11,8 +12,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.alibaba:arouter-register:1.0.2'
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.36'
+        //腾讯的多渠道打包
         classpath 'com.tencent.vasdolly:plugin:3.0.3'
-
     }
 }
 

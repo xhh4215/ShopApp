@@ -30,7 +30,7 @@ class AmountView @JvmOverloads constructor(
         val increaseButton = generateBtn()
         increaseButton.text = "+"
         val decreaseButton = generateBtn()
-        increaseButton.text = "-"
+        decreaseButton.text = "-"
         val amountView = generateAmountTextView()
         amountView.text = amountValue.toString()
         addView(decreaseButton)

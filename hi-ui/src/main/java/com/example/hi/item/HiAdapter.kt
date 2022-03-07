@@ -37,7 +37,6 @@ class HiAdapter(context: Context) : Adapter<ViewHolder>() {
             notifyItemInserted(headers.size() - 1)
         }
     }
-
     fun removeHeaderView(view: View) {
         val indexOfValue = headers.indexOfValue(view)
         if (indexOfValue < 0) return
@@ -46,7 +45,7 @@ class HiAdapter(context: Context) : Adapter<ViewHolder>() {
     }
 
     fun addFooterView(view: View) {
-        //说明这个fgooterview 没有添加过
+        //说明这个footerview 没有添加过
         if (footers.indexOfValue(view) < 0) {
             footers.put(BASE_ITEM_TYPE_FOOTER++, view)
             notifyItemInserted(itemCount)

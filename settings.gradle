@@ -1,3 +1,4 @@
+//项目的初始化阶段 分析有哪些项目可以参与构建
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {

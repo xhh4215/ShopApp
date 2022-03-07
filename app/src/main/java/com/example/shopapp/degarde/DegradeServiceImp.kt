@@ -6,6 +6,9 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.facade.service.DegradeService
 import com.example.common.route.HiRoute
 
+/****
+ *
+ */
 @Route(path = "/degrade/global/service")
 class DegradeServiceImp : DegradeService {
     override fun init(context: Context?) {

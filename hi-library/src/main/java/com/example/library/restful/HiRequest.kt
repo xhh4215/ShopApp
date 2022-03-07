@@ -40,13 +40,13 @@ open class HiRequest {
     //是否是表单提交
     var formPost: Boolean = true
 
-    @IntDef(value = [METHOD.GET, METHOD.POST])
+    @IntDef(value = [METHOD.GET, METHOD.POST, METHOD.DELETE, METHOD.PUT])
     annotation class METHOD {
         companion object {
             const val GET = 0
             const val POST = 1
-            const val PUT=2
-            const val DELETE=3
+            const val PUT = 2
+            const val DELETE = 3
         }
     }
 

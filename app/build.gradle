@@ -5,8 +5,8 @@ plugins {
     id 'com.alibaba.arouter'
 }
 apply from: '../dependency.gradle'
+//vasdolly 插件
 apply plugin: 'com.tencent.vasdolly'
-
 def ext = rootProject.ext
 def dependency = rootProject.ext.dependencies
 kapt {
@@ -16,6 +16,7 @@ kapt {
     }
 }
 android {
+
     signingConfigs {
         release {
             storeFile file('/Users/xh/project/android_project/ShopApp/shopapp')
@@ -84,7 +85,7 @@ rebuildChannel {
     // 已有APK文件地址（必填）,如new File(project.rootDir, "/baseApk/app_base.apk"),文件名中的base将被替换为渠道名
     baseApk = new File(project.buildDir, "build_apk_path/app_base.apk")
     //默认为new File(project.buildDir, "rebuildChannel")
-    outputDir =  new File(project.buildDir, "rebuild_apk_path")
+    outputDir = new File(project.buildDir, "rebuild_apk_path")
     //快速模式：生成渠道包时不进行校验（速度可以提升10倍以上，默认为false）
     fastMode = false
     //低内存模式（仅针对V2签名，默认为false）：只把签名块、中央目录和EOCD读取到内存，不把最大头的内容块读取到内存，在手机上合成APK时，可以使用该模式
@@ -105,6 +106,8 @@ dependencies {
     //arouter路由
     implementation dependency.arouter_api
     kapt dependency.arouter_compiler
+    //多渠道打包
     api dependency.vasdolly_version
+
 
 }
